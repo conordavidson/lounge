@@ -3,7 +3,10 @@ import YouTube from 'react-youtube';
 
 class Player extends Component {
   componentDidMount() {
-    this.props.fetchMoviesAndTrailer();
+    this.props.queryForMovies({
+      genre: 99,
+      year: 2010
+    });
   }
 
   render() {

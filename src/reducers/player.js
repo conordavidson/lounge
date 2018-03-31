@@ -1,8 +1,7 @@
 import {
-  QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_MOVIES, RECEIVE_MOVIE_TRAILER,
-  INITIALIZATION_SUCCESS, FETCH_PENDING, FETCH_SUCCESS
+  QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META, RECEIVE_MOVIE,
+  RECEIVE_MOVIE_TRAILER, INITIALIZATION_SUCCESS, FETCH_PENDING, FETCH_SUCCESS
 } from '../actions'
-import randomizeArray from '../utils/randomizeArray'
 
 export const initialState = {
   _STATUS_INITIALIZED: false,
@@ -11,7 +10,9 @@ export const initialState = {
   movies: {},
   currentMovieId: null,
   pageNumber: null,
-  totalPages: null
+  totalPages: null,
+  genre: null,
+  year: null
 }
 
 export default (state = initialState, action) => {
@@ -30,16 +31,22 @@ export default (state = initialState, action) => {
           state.queue.findIndex(id => id === state.currentMovieId) - 1
         ]
       }
-    case RECEIVE_MOVIES:
-      const queue = randomizeArray(action.payload.results).map(movie => movie.id)
+    case RECEIVE_QUERY_META:
       return {
         ...state,
-        movies: action.payload.results.reduce((moviesObject, movie) => {
-          moviesObject[movie.id] = movie
-          return moviesObject
-        }, {}),
-        queue,
-        currentMovieId: queue[0]
+        pageNumber: action.payload.page,
+        totalPages: action.payload.total_pages,
+        genre: action.payload.genre,
+        year: action.payload.year
+      }
+    case RECEIVE_MOVIE:
+      return {
+        ...state,
+        movies: {
+          ...state.movies,
+          [action.payload.id]: action.payload
+        },
+        currentMovieId: action.payload.id
       }
     case RECEIVE_MOVIE_TRAILER:
       return {
@@ -50,7 +57,8 @@ export default (state = initialState, action) => {
             ...state.movies[action.payload.id],
             trailer: action.payload.results[0]
           }
-        }
+        },
+        queue: state.queue.concat([action.payload.id]),
       }
     case INITIALIZATION_SUCCESS:
       return {
