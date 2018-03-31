@@ -11,19 +11,26 @@ class Player extends Component {
 
     return (
       <div>
-        {this.props.__STATUS__initialized ?
-          <YouTube
-            videoId = {currentMovie().trailer.key}
-            opts = {{
-              height: '100%',
-              width: '100%',
-              playerVars: {
-                autoplay: 1
-              }
-            }}
-          />
+        {this.props._STATUS_INITIALIZED && !this.props._STATUS_IS_FETCHING ?
+          <div>
+            <YouTube
+              videoId = {currentMovie().trailer.key}
+              opts = {{
+                width: '1080',
+                height: '720',
+                playerVars: {
+                  autoplay: 1
+                }
+              }}
+            />
+          <a onClick = {() => this.props.nextMovie()}>NEXT</a>
+            <br/>
+          <a onClick = {() => this.props.previousMovie()}>PREV</a>
+          </div>
         :
-          null
+          <div>
+            LOADING...
+          </div>
         }
       </div>
     )

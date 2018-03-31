@@ -1,11 +1,12 @@
 import {
-  NEXT_MOVIE, PREVIOUS_MOVIE, RECEIVE_MOVIES, RECEIVE_MOVIE_TRAILER,
-  INITIALIZATION_SUCCESS
+  QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_MOVIES, RECEIVE_MOVIE_TRAILER,
+  INITIALIZATION_SUCCESS, FETCH_PENDING, FETCH_SUCCESS
 } from '../actions'
-import randomItem from '../utils/randomItem'
+import randomizeArray from '../utils/randomizeArray'
 
 export const initialState = {
-  __STATUS__initialized: false,
+  _STATUS_INITIALIZED: false,
+  _STATUS_IS_FETCHING: true,
   queue: [],
   movies: {},
   currentMovieId: null,
@@ -15,28 +16,30 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case NEXT_MOVIE:
+    case QUEUE_FORWARD:
       return {
         ...state,
-        currentMovieId: state.queue.findIndex(id => {
-          return id === state.currentMovieId
-        }) + 1
+        currentMovieId: state.queue[
+          state.queue.findIndex(id => id === state.currentMovieId) + 1
+        ]
       }
-    case PREVIOUS_MOVIE:
+    case QUEUE_BACKWARD:
       return {
         ...state,
-        currentMovieId: state.queue.findIndex(id => {
-          return id === state.currentMovieId
-        }) - 1
+        currentMovieId: state.queue[
+          state.queue.findIndex(id => id === state.currentMovieId) - 1
+        ]
       }
     case RECEIVE_MOVIES:
+      const queue = randomizeArray(action.payload.results).map(movie => movie.id)
       return {
         ...state,
         movies: action.payload.results.reduce((moviesObject, movie) => {
           moviesObject[movie.id] = movie
           return moviesObject
         }, {}),
-        currentMovieId: randomItem(action.payload.results).id
+        queue,
+        currentMovieId: queue[0]
       }
     case RECEIVE_MOVIE_TRAILER:
       return {
@@ -52,7 +55,17 @@ export default (state = initialState, action) => {
     case INITIALIZATION_SUCCESS:
       return {
         ...state,
-        __STATUS__initialized: true
+        _STATUS_INITIALIZED: true
+      }
+    case FETCH_PENDING:
+      return {
+        ...state,
+        _STATUS_IS_FETCHING: true
+      }
+    case FETCH_SUCCESS:
+      return {
+        ...state,
+        _STATUS_IS_FETCHING: false
       }
     default:
       return state;

@@ -1,22 +1,42 @@
 import THEMOVIEDB_KEY from '../external/themoviedb/key'
 
 export const NEXT_MOVIE = 'NEXT_MOVIE'
-export const nextMovie = () => {
-  return {
-    type: NEXT_MOVIE
-  };
+export const nextMovie = payload => (dispatch, getState) => {
+  dispatch(fetchPending())
+  dispatch(queueForward())
+  return dispatch(fetchMovieTrailer(getState().player.currentMovieId))
+  .then(() => {
+    return dispatch(fetchSuccess())
+  })
 }
 
 export const PREVIOUS_MOVIE = 'PREVIOUS_MOVIE'
-export const previousMovie = () => {
+export const previousMovie = payload => (dispatch, getState) => {
+  dispatch(fetchPending())
+  dispatch(queueBackward())
+  return dispatch(fetchMovieTrailer(getState().player.currentMovieId))
+  .then(() => {
+    return dispatch(fetchSuccess())
+  })
+}
+
+export const QUEUE_FORWARD = 'QUEUE_FORWARD'
+export const queueForward = () => {
   return {
-    type: PREVIOUS_MOVIE
-  };
+    type: QUEUE_FORWARD
+  }
+}
+
+export const QUEUE_BACKWARD = 'QUEUE_BACKWARD'
+export const queueBackward = () => {
+  return {
+    type: QUEUE_BACKWARD
+  }
 }
 
 export const FETCH_MOVIES = 'FETCH_MOVIES'
 export const fetchMovies = payload => dispatch => {
-  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=27&year=2010`)
+  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=99&year=2010`)
     .then(
       response => response.json(),
       error => console.log('ERROR FETCHING MOVIES', error)
@@ -59,8 +79,10 @@ export const fetchMoviesAndTrailer = payload => (dispatch, getState) => {
   return dispatch(fetchMovies())
   .then(() =>
     dispatch(fetchMovieTrailer(getState().player.currentMovieId))
-    .then(() =>
-      dispatch(initizationSuccess())
+    .then(() => {
+        dispatch(initizationSuccess())
+        dispatch(fetchSuccess())
+      }
     )
   )
 }
@@ -69,5 +91,19 @@ export const INITIALIZATION_SUCCESS = 'INITIALIZATION_SUCCESS'
 export const initizationSuccess = () => {
   return {
     type: INITIALIZATION_SUCCESS
+  }
+}
+
+export const FETCH_PENDING = 'FETCH_PENDING'
+export const fetchPending = () => {
+  return {
+    type: FETCH_PENDING
+  }
+}
+
+export const FETCH_SUCCESS = 'FETCH_SUCCESS'
+export const fetchSuccess = () => {
+  return {
+    type: FETCH_SUCCESS
   }
 }
