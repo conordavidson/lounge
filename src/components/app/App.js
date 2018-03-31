@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reducers from '../../reducers';
 import Player from '../../containers/PlayerContainer';
+import Query from '../../containers/QueryContainer';
 
 const store = createStore(
   reducers,
@@ -13,7 +14,10 @@ const store = createStore(
 
 const App = () => (
   <Provider store={store}>
-    <Player/>
+    <main>
+      <Query/>
+      <Player/>
+    </main>
   </Provider>
 );
 

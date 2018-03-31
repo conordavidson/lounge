@@ -19,8 +19,8 @@ class Player extends Component {
           <YouTube
             videoId = {currentMovie().trailer.key}
             opts = {{
-              height: '390',
-              width: '640',
+              height: '100%',
+              width: '100%',
               playerVars: {
                 autoplay: 1
               }
