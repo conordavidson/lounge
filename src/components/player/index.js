@@ -7,11 +7,7 @@ class Player extends Component {
   }
 
   render() {
-    const currentMovie = () => {
-      return this.props.movies.find(movie => {
-        return movie.id === this.props.currentMovieId
-      })
-    }
+    const currentMovie = () => this.props.movies[this.props.currentMovieId]
 
     return (
       <div>
