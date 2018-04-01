@@ -1,4 +1,4 @@
-import THEMOVIEDB_KEY from '../external/themoviedb/key'
+import { fetchMovies, fetchDetails } from '../external/themoviedb/queries'
 import randomItem from '../utils/randomItem'
 
 export const SET_GENRE_AND_QUERY = 'SET_GENRE_AND_QUERY'
@@ -7,7 +7,7 @@ export const setGenreAndQuery = payload => (dispatch, getState) => {
   dispatch(setGenre(payload))
   dispatch(queryForMovies({
     genre: getState().player.genre,
-    year: getState().player.year
+    years: getState().player.years
   }))
   .then(() => dispatch(fetchSuccess()))
 }
@@ -20,19 +20,21 @@ export const setGenre = payload => {
   }
 }
 
-export const SET_YEAR_AND_QUERY = 'SET_YEAR_AND_QUERY'
-export const setYearAndQuery = payload => (dispatch, getState) => {
-  dispatch(setYear(payload))
+export const SET_YEARS_AND_QUERY = 'SET_YEARS_AND_QUERY'
+export const setYearsAndQuery = payload => (dispatch, getState) => {
+  dispatch(fetchPending())
+  dispatch(setYears(payload))
   dispatch(queryForMovies({
     genre: getState().player.genre,
-    year: getState().player.year
+    years: getState().player.years
   }))
+  .then(() => dispatch(fetchSuccess()))
 }
 
-export const SET_YEAR = 'SET_YEAR'
-export const setYear = payload => {
+export const SET_YEARS = 'SET_YEARS'
+export const setYears = payload => {
   return {
-    type: SET_YEAR,
+    type: SET_YEARS,
     payload
   }
 }
@@ -44,11 +46,11 @@ export const queryForMovies = payload => (dispatch, getState) => {
     return dispatch(fetchRandomMovieFromPage({
       pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
       genre: getState().player.genre,
-      year: getState().player.year
+      years: getState().player.years
     }))
   })
   .then(() => {
-    return dispatch(fetchMovieTrailer(getState().player.currentMovieId))
+    return dispatch(fetchMovieDetails(getState().player.currentMovieId))
   })
   .then(() => {
     dispatch(initizationSuccess())
@@ -57,17 +59,21 @@ export const queryForMovies = payload => (dispatch, getState) => {
 
 export const FETCH_QUERY_META = 'FETCH_QUERY_META'
 export const fetchQueryMeta = payload => (dispatch, getState) => {
-  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${getState().genre}&year=${getState().year}`)
-    .then(
-      response => response.json(),
-      error => console.log('ERROR FETCHING MOVIES', error)
-    )
-    .then(data =>
-      dispatch(receiveQueryMeta({
-        ...data,
-        ...payload
-      }))
-    )
+  return fetchMovies({
+    genre: getState().player.genre,
+    years: getState().player.years,
+    pageNumber: 1
+  })
+  .then(
+    response => response.json(),
+    error => console.log('ERROR FETCHING MOVIES', error)
+  )
+  .then(data =>
+    dispatch(receiveQueryMeta({
+      ...data,
+      ...payload
+    }))
+  )
 }
 
 export const RECEIVE_QUERY_META = 'RECEIVE_QUERY_META'
@@ -81,14 +87,18 @@ export const receiveQueryMeta = payload => {
 
 export const FETCH_RANDOM_MOVIE_FROM_PAGE = 'FETCH_RANDOM_MOVIE_FROM_PAGE'
 export const fetchRandomMovieFromPage = payload => dispatch => {
-  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=original_title.asc&include_adult=false&include_video=false&page=${payload.pageNumber}&with_genres=${payload.genre}&year=${payload.year}`)
-    .then(
-      response => response.json(),
-      error => console.log('ERROR FETCHING MOVIES', error)
-    )
-    .then(data => {
-      return dispatch(receiveMovie(randomItem(data.results)))
-    })
+  return fetchMovies({
+    genre: payload.genre,
+    years: payload.years,
+    pageNumber: payload.pageNumber
+  })
+  .then(
+    response => response.json(),
+    error => console.log('ERROR FETCHING MOVIES', error)
+  )
+  .then(data => {
+    return dispatch(receiveMovie(randomItem(data.results)))
+  })
 }
 
 export const RECEIVE_MOVIE = 'RECEIVE_MOVIE'
@@ -99,33 +109,33 @@ export const receiveMovie = payload => {
   }
 }
 
-export const FETCH_MOVIE_TRAILER = 'FETCH_MOVIE_TRAILER'
-export const fetchMovieTrailer = payload => (dispatch, getState) => {
-  return fetch(`https://api.themoviedb.org/3/movie/${payload}/videos?api_key=${THEMOVIEDB_KEY}`)
-    .then(
-      response => response.json(),
-      error => console.log('ERROR FETCHING MOVIE TRAILER', error)
-    )
-    .then(data => {
-      if (data.results.length) {
-        return dispatch(receiveMovieTrailer(data))
-      } else {
-        return dispatch(fetchRandomMovieFromPage({
-          pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
-          genre: getState().player.genre,
-          year: getState().player.year
-        }))
-        .then(() => {
-          return dispatch(fetchMovieTrailer(getState().player.currentMovieId))
-        })
-      }
-    })
+export const FETCH_MOVIE_DETAILS = 'FETCH_MOVIE_DETAILS'
+export const fetchMovieDetails = payload => (dispatch, getState) => {
+  return fetchDetails({ id: payload })
+  .then(
+    response => response.json(),
+    error => console.log('ERROR FETCHING MOVIE TRAILER', error)
+  )
+  .then(data => {
+    if (data.videos.results.length) {
+      return dispatch(receiveMovieDetails(data))
+    } else {
+      return dispatch(fetchRandomMovieFromPage({
+        pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
+        genre: getState().player.genre,
+        years: getState().player.years
+      }))
+      .then(() => {
+        return dispatch(fetchMovieDetails(getState().player.currentMovieId))
+      })
+    }
+  })
 }
 
-export const RECEIVE_MOVIE_TRAILER = 'RECEIVE_MOVIE_TRAILER';
-export const receiveMovieTrailer = payload => {
+export const RECEIVE_MOVIE_DETAILS = 'RECEIVE_MOVIE_DETAILS';
+export const receiveMovieDetails = payload => {
   return {
-    type: RECEIVE_MOVIE_TRAILER,
+    type: RECEIVE_MOVIE_DETAILS,
     payload
   }
 }
@@ -140,10 +150,10 @@ export const nextMovie = payload => (dispatch, getState) => {
     return dispatch(fetchRandomMovieFromPage({
       pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
       genre: getState().player.genre,
-      year: getState().player.year
+      years: getState().player.years
     }))
     .then(() => {
-      return dispatch(fetchMovieTrailer(getState().player.currentMovieId))
+      return dispatch(fetchMovieDetails(getState().player.currentMovieId))
     })
     .then(() => {
       return dispatch(fetchSuccess())

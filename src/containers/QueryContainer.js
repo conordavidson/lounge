@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setGenreAndQuery, setYearAndQuery } from '../actions';
+import { setGenreAndQuery, setYearsAndQuery } from '../actions';
 import Query from '../components/query';
 
 const mapStateToProps = state => {
@@ -13,8 +13,8 @@ const mapDispatchToProps = dispatch => {
     setGenreAndQuery: payload => {
       dispatch(setGenreAndQuery(payload))
     },
-    setYearAndQuery: payload => {
-      dispatch(setYearAndQuery(payload))
+    setYearsAndQuery: payload => {
+      dispatch(setYearsAndQuery(payload))
     }
   }
 }

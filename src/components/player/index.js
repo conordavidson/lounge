@@ -5,7 +5,7 @@ class Player extends Component {
   currentMovie() {
     return this.props.movies[this.props.currentMovieId]
   }
-  
+
   render() {
     return (
       <div>
@@ -17,13 +17,21 @@ class Player extends Component {
                 width: '1080',
                 height: '720',
                 playerVars: {
-                  autoplay: 1
+                  autoplay: 1,
+                  controls: 0,
+                  modestbranding: 1,
+                  rel: 0,
+                  showinfo: 0,
+                  fs: 0
                 }
               }}
             />
-          <a onClick = {() => this.props.nextMovie()}>NEXT</a>
-            <br/>
-          <a onClick = {() => this.props.previousMovie()}>PREV</a>
+            <a onClick = {() => this.props.nextMovie()}>NEXT</a>
+              <br/>
+            <a onClick = {() => this.props.previousMovie()}>PREV</a>
+            <p>{this.currentMovie().title}</p>
+            <p>{JSON.stringify(this.currentMovie().directors)}</p>
+            <p>{this.currentMovie().release_date}</p>
           </div>
         :
           <div>

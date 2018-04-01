@@ -1,6 +1,6 @@
 import {
-  SET_GENRE, SET_YEAR, QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META,
-  RECEIVE_MOVIE, RECEIVE_MOVIE_TRAILER, INITIALIZATION_SUCCESS, FETCH_PENDING,
+  SET_GENRE, SET_YEARS, QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META,
+  RECEIVE_MOVIE, RECEIVE_MOVIE_DETAILS, INITIALIZATION_SUCCESS, FETCH_PENDING,
   FETCH_SUCCESS
 } from '../actions'
 
@@ -13,7 +13,10 @@ export const initialState = {
   pageNumber: null,
   totalPages: null,
   genre: null,
-  year: 2017
+  years: {
+    min: null,
+    max: null
+  }
 }
 
 export default (state = initialState, action) => {
@@ -23,10 +26,13 @@ export default (state = initialState, action) => {
         ...state,
         genre: action.payload
       }
-    case SET_YEAR:
+    case SET_YEARS:
       return {
         ...state,
-        year: action.payload
+        years: {
+          min: action.payload.min,
+          max: action.payload.max
+        }
       }
     case QUEUE_FORWARD:
       return {
@@ -48,7 +54,7 @@ export default (state = initialState, action) => {
         pageNumber: action.payload.page,
         totalPages: action.payload.total_pages,
         genre: action.payload.genre,
-        year: action.payload.year
+        years: action.payload.years
       }
     case RECEIVE_MOVIE:
       return {
@@ -59,14 +65,17 @@ export default (state = initialState, action) => {
         },
         currentMovieId: action.payload.id
       }
-    case RECEIVE_MOVIE_TRAILER:
+    case RECEIVE_MOVIE_DETAILS:
       return {
         ...state,
         movies: {
           ...state.movies,
           [action.payload.id]: {
             ...state.movies[action.payload.id],
-            trailer: action.payload.results[0]
+            trailer: action.payload.videos.results[0],
+            directors: action.payload.credits.crew.filter(member => {
+              return member.job === 'Director'
+            })
           }
         },
         queue: state.queue.concat([action.payload.id]),

@@ -17,9 +17,31 @@ class Query extends Component {
     })
   }
 
+  setYear(e) {
+    e.preventDefault()
+    const min = parseInt(e.target.min.value, 10) || null
+    const max = parseInt(e.target.max.value, 10) || null
+    this.props.setYearsAndQuery({ min, max })
+  }
+
+  yearSelector() {
+    return (
+      <form onSubmit={(e) => this.setYear(e)}>
+        <label>MIN</label>
+        <input name='min' type='text'/>
+        <label>MAX</label>
+        <input name='max' type='text'/>
+        <button type='submit'/>
+      </form>
+    )
+  }
+
   render() {
     return (
-      <ul>{this.genreDropdown()}</ul>
+      <div>
+        <ul>{this.genreDropdown()}</ul>
+        <div>{this.yearSelector()}</div>
+      </div>
     )
   }
 }
