@@ -1,10 +1,12 @@
-import React from 'react';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import reducers from '../../reducers';
-import Player from '../../containers/PlayerContainer';
-import Query from '../../containers/QueryContainer';
+import React from 'react'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import reducers from '../../reducers'
+import Player from '../../containers/PlayerContainer'
+import Query from '../../containers/QueryContainer'
+import './style.css'
+import './base.css'
 
 const store = createStore(
   reducers,

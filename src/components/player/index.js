@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import YouTube from 'react-youtube'
+import './style.css';
 
 class Player extends Component {
   currentMovie() {
@@ -8,14 +9,14 @@ class Player extends Component {
 
   render() {
     return (
-      <div>
+      <div className={`player_component`}>
         {this.props._STATUS_INITIALIZED && !this.props._STATUS_IS_FETCHING ?
-          <div>
+          <div className={`player`}>
             <YouTube
               videoId = {this.currentMovie().trailer.key}
               opts = {{
-                width: '1080',
-                height: '720',
+                width: '100%',
+                height: '100%',
                 playerVars: {
                   autoplay: 1,
                   controls: 0,

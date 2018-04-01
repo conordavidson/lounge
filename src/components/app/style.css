@@ -1,0 +1,9 @@
+main {
+  font-family: 'Arial';
+  text-shadow: -0.11rem 0.11rem 0 var(--color-primary);
+  -webkit-text-stroke-color: var(--color-primary);
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke-width: .5px; }
