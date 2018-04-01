@@ -1,12 +1,45 @@
 import THEMOVIEDB_KEY from '../external/themoviedb/key'
 import randomItem from '../utils/randomItem'
 
+export const SET_GENRE_AND_QUERY = 'SET_GENRE_AND_QUERY'
+export const setGenreAndQuery = payload => (dispatch, getState) => {
+  dispatch(fetchPending())
+  dispatch(setGenre(payload))
+  dispatch(queryForMovies({
+    genre: getState().player.genre,
+    year: getState().player.year
+  }))
+  .then(() => dispatch(fetchSuccess()))
+}
+
+export const SET_GENRE = 'SET_GENRE'
+export const setGenre = payload => {
+  return {
+    type: SET_GENRE,
+    payload
+  }
+}
+
+export const SET_YEAR_AND_QUERY = 'SET_YEAR_AND_QUERY'
+export const setYearAndQuery = payload => (dispatch, getState) => {
+  dispatch(setYear(payload))
+  dispatch(queryForMovies({
+    genre: getState().player.genre,
+    year: getState().player.year
+  }))
+}
+
+export const SET_YEAR = 'SET_YEAR'
+export const setYear = payload => {
+  return {
+    type: SET_YEAR,
+    payload
+  }
+}
+
 export const QUERY_FOR_MOVIES = 'QUERY_FOR_MOVIES'
 export const queryForMovies = payload => (dispatch, getState) => {
-  return dispatch(fetchQueryMeta({
-    genre: payload.genre,
-    year: payload.year
-  }))
+  return dispatch(fetchQueryMeta({ ...payload }))
   .then(() => {
     return dispatch(fetchRandomMovieFromPage({
       pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
@@ -19,13 +52,12 @@ export const queryForMovies = payload => (dispatch, getState) => {
   })
   .then(() => {
     dispatch(initizationSuccess())
-    dispatch(fetchSuccess())
   })
 }
 
 export const FETCH_QUERY_META = 'FETCH_QUERY_META'
-export const fetchQueryMeta = payload => dispatch => {
-  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${payload.genre}&year=${payload.year}`)
+export const fetchQueryMeta = payload => (dispatch, getState) => {
+  return fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${THEMOVIEDB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${getState().genre}&year=${getState().year}`)
     .then(
       response => response.json(),
       error => console.log('ERROR FETCHING MOVIES', error)

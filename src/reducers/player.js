@@ -1,22 +1,33 @@
 import {
-  QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META, RECEIVE_MOVIE,
-  RECEIVE_MOVIE_TRAILER, INITIALIZATION_SUCCESS, FETCH_PENDING, FETCH_SUCCESS
+  SET_GENRE, SET_YEAR, QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META,
+  RECEIVE_MOVIE, RECEIVE_MOVIE_TRAILER, INITIALIZATION_SUCCESS, FETCH_PENDING,
+  FETCH_SUCCESS
 } from '../actions'
 
 export const initialState = {
   _STATUS_INITIALIZED: false,
-  _STATUS_IS_FETCHING: true,
+  _STATUS_IS_FETCHING: false,
   queue: [],
   movies: {},
   currentMovieId: null,
   pageNumber: null,
   totalPages: null,
   genre: null,
-  year: null
+  year: 2017
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_GENRE:
+      return {
+        ...state,
+        genre: action.payload
+      }
+    case SET_YEAR:
+      return {
+        ...state,
+        year: action.payload
+      }
     case QUEUE_FORWARD:
       return {
         ...state,
