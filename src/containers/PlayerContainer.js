@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { nextMovie, previousMovie, queryForMovies } from '../actions';
 import Player from '../components/player';
 
 const mapStateToProps = state => {
@@ -8,23 +7,6 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    nextMovie: () => {
-      dispatch(nextMovie())
-    },
-    previousMovie: () => {
-      dispatch(previousMovie())
-    },
-    queryForMovies: payload => {
-      dispatch(queryForMovies(payload))
-    }
-  }
-}
-
-const PlayerContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Player)
+const PlayerContainer = connect(mapStateToProps)(Player)
 
 export default PlayerContainer

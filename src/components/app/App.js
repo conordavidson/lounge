@@ -3,10 +3,15 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducers from '../../reducers'
+
 import Player from '../../containers/PlayerContainer'
 import Query from '../../containers/QueryContainer'
+import Controls from '../../containers/ControlsContainer'
+import Info from '../../containers/InfoContainer'
+
 import './style.css'
 import './base.css'
+import './reset.css'
 
 const store = createStore(
   reducers,
@@ -17,8 +22,11 @@ const store = createStore(
 const App = () => (
   <Provider store={store}>
     <main>
-      <Query/>
-      <Player/>
+      <div className='overlay' />
+      <Player />
+      <Query />
+      <Controls />
+      <Info />
     </main>
   </Provider>
 );

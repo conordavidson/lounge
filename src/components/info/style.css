@@ -1,0 +1,29 @@
+.info_component {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100; }
+  .info_component p {
+    opacity: 0;
+    font-size: 0;
+    transition: opacity .25s ease-in-out; }
+  .info_component:hover p {
+    opacity: 100;
+    font-size: inherit; }
+    .info_component:hover p.info_component--title {
+      font-size: 2rem; }
+  .info_component .info_component--icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border: 0.125rem solid var(--color-primary);
+    border-radius: 50%;
+    background-color: transparent;
+    text-align: center;
+    cursor: pointer; }
+    .info_component .info_component--icon::before {
+      content: 'i';
+      display: block;
+      position: relative;
+      font-size: .75em; }

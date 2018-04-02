@@ -27,12 +27,6 @@ class Player extends Component {
                 }
               }}
             />
-            <a onClick = {() => this.props.nextMovie()}>NEXT</a>
-              <br/>
-            <a onClick = {() => this.props.previousMovie()}>PREV</a>
-            <p>{this.currentMovie().title}</p>
-            <p>{JSON.stringify(this.currentMovie().directors)}</p>
-            <p>{this.currentMovie().release_date}</p>
           </div>
         :
           <div>

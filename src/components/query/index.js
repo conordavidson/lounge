@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Genres from '../../external/themoviedb/genres.js'
+import './style.css'
 
 class Query extends Component {
   genreDropdown() {
@@ -27,9 +28,9 @@ class Query extends Component {
   yearSelector() {
     return (
       <form onSubmit={(e) => this.setYear(e)}>
-        <label>MIN</label>
+        <label>FROM</label>
         <input name='min' type='text'/>
-        <label>MAX</label>
+        <label>TO</label>
         <input name='max' type='text'/>
         <button type='submit'/>
       </form>
@@ -38,7 +39,7 @@ class Query extends Component {
 
   render() {
     return (
-      <div>
+      <div className={`query_component`}>
         <ul>{this.genreDropdown()}</ul>
         <div>{this.yearSelector()}</div>
       </div>

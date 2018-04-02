@@ -1,0 +1,40 @@
+.info_component {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+
+  p {
+    opacity: 0;
+    font-size: 0;
+    transition: opacity .25s ease-in-out;
+  }
+
+  &:hover p {
+    opacity: 100;
+    font-size: inherit;
+
+    &.info_component--title {
+      font-size: 2rem;
+    }
+  }
+
+  .info_component--icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border: .125rem solid var(--color-primary);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    text-align: center;
+    cursor: pointer;
+
+    &::before {
+      content: 'i';
+      display: block;
+      position: relative;
+      font-size: .75em;
+    }
+  }
+}
