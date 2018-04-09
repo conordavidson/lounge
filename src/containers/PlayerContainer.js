@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import Player from '../components/player';
+import { connect } from 'react-redux'
+import Player from '../components/player'
 
 const mapStateToProps = state => {
   return {

@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
-import { setGenreAndQuery, setYearsAndQuery } from '../actions';
-import Query from '../components/query';
+import { connect } from 'react-redux'
+import { setGenreAndQuery, setYearsAndQuery } from '../actions'
+import Query from '../components/query'
 
 const mapStateToProps = state => {
   return {

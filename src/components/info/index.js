@@ -17,7 +17,7 @@ class Info extends Component {
   render() {
     return (
       <div className={`info_component`}>
-        {this.props._STATUS_INITIALIZED && !this.props._STATUS_IS_FETCHING ?
+        {this.props._STATUS_INITIALIZED && !this.props._STATUS_LOADING ?
           <div>
             <mark className={`info_component--icon`} />
             <p className={`info_component--title`}>{this.currentMovie().title}</p>

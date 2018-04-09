@@ -10,7 +10,7 @@ class Player extends Component {
   render() {
     return (
       <div className={`player_component`}>
-        {this.props._STATUS_INITIALIZED && !this.props._STATUS_IS_FETCHING ?
+        {this.props._STATUS_INITIALIZED && !this.props._STATUS_LOADING ?
           <div className={`player`}>
             <YouTube
               videoId = {this.currentMovie().trailer.key}

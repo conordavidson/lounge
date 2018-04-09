@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
-import { nextMovie, previousMovie } from '../actions';
-import Controls from '../components/controls';
+import { connect } from 'react-redux'
+import { nextMovie, previousMovie } from '../actions'
+import Controls from '../components/controls'
 
 const mapStateToProps = state => {
   return {

@@ -1,12 +1,12 @@
 import {
   SET_GENRE, SET_YEARS, QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META,
-  RECEIVE_MOVIE, RECEIVE_MOVIE_DETAILS, INITIALIZATION_SUCCESS, FETCH_PENDING,
-  FETCH_SUCCESS
+  RECEIVE_MOVIE, RECEIVE_MOVIE_DETAILS, FETCH_QUERY_META, FETCH_MOVIES,
+  FETCH_MOVIE_DETAILS
 } from '../actions'
 
 export const initialState = {
   _STATUS_INITIALIZED: false,
-  _STATUS_IS_FETCHING: false,
+  _STATUS_LOADING: false,
   queue: [],
   movies: {},
   currentMovieId: null,
@@ -21,12 +21,12 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_GENRE:
+    case `${SET_GENRE}_FULFILLED`:
       return {
         ...state,
         genre: action.payload
       }
-    case SET_YEARS:
+    case `${SET_YEARS}_FULFILLED`:
       return {
         ...state,
         years: {
@@ -34,21 +34,21 @@ export default (state = initialState, action) => {
           max: action.payload.max
         }
       }
-    case QUEUE_FORWARD:
+    case `${QUEUE_FORWARD}_FULFILLED`:
       return {
         ...state,
         currentMovieId: state.queue[
           state.queue.findIndex(id => id === state.currentMovieId) + 1
         ]
       }
-    case QUEUE_BACKWARD:
+    case `${QUEUE_BACKWARD}_FULFILLED`:
       return {
         ...state,
         currentMovieId: state.queue[
           state.queue.findIndex(id => id === state.currentMovieId) - 1
         ]
       }
-    case RECEIVE_QUERY_META:
+    case `${RECEIVE_QUERY_META}_FULFILLED`:
       return {
         ...state,
         pageNumber: action.payload.page,
@@ -56,7 +56,7 @@ export default (state = initialState, action) => {
         genre: action.payload.genre,
         years: action.payload.years
       }
-    case RECEIVE_MOVIE:
+    case `${RECEIVE_MOVIE}_FULFILLED`:
       return {
         ...state,
         movies: {
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         },
         currentMovieId: action.payload.id
       }
-    case RECEIVE_MOVIE_DETAILS:
+    case `${RECEIVE_MOVIE_DETAILS}_FULFILLED`:
       return {
         ...state,
         movies: {
@@ -79,21 +79,23 @@ export default (state = initialState, action) => {
           }
         },
         queue: state.queue.concat([action.payload.id]),
+        _STATUS_INITIALIZED: true,
+        _STATUS_LOADING: false
       }
-    case INITIALIZATION_SUCCESS:
+    case `${FETCH_QUERY_META}_PENDING`:
       return {
         ...state,
-        _STATUS_INITIALIZED: true
+        _STATUS_LOADING: true,
       }
-    case FETCH_PENDING:
+    case `${FETCH_MOVIES}_PENDING`:
       return {
         ...state,
-        _STATUS_IS_FETCHING: true
+        _STATUS_LOADING: true,
       }
-    case FETCH_SUCCESS:
+    case `${FETCH_MOVIE_DETAILS}_PENDING`:
       return {
         ...state,
-        _STATUS_IS_FETCHING: false
+        _STATUS_LOADING: true,
       }
     default:
       return state;
