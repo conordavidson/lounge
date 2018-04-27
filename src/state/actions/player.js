@@ -1,5 +1,8 @@
-import { TMDB_fetchMovies, TMDB_fetchDetails } from '../external/themoviedb/queries'
-import randomItem from '../utils/randomItem'
+import {
+  TMDB_fetchMovies,
+  TMDB_fetchDetails
+} from 'external/themoviedb/queries'
+import randomItem from 'utils/randomItem'
 
 /*
 Manipulations
@@ -56,7 +59,7 @@ export const receiveMovie = payload => {
   }
 }
 
-export const RECEIVE_MOVIE_DETAILS = 'RECEIVE_MOVIE_DETAILS';
+export const RECEIVE_MOVIE_DETAILS = 'RECEIVE_MOVIE_DETAILS'
 export const receiveMovieDetails = payload => {
   return {
     type: RECEIVE_MOVIE_DETAILS,
@@ -78,12 +81,14 @@ export const fetchQueryMeta = payload => {
         years: payload.years,
         pageNumber: 1
       })
-      .then(data => data.json())
-      .catch(error => reject(error))
-      .then(data => resolve({
-        ...data,
-        ...payload
-      }))
+        .then(data => data.json())
+        .catch(error => reject(error))
+        .then(data =>
+          resolve({
+            ...data,
+            ...payload
+          })
+        )
     })
   }
 }
@@ -94,8 +99,8 @@ export const fetchMovies = payload => {
     type: 'FETCH_MOVIES',
     payload: new Promise((resolve, reject) => {
       return TMDB_fetchMovies({ ...payload })
-      .then(data => resolve(data.json()))
-      .catch(error => reject(error))
+        .then(data => resolve(data.json()))
+        .catch(error => reject(error))
     })
   }
 }
@@ -106,8 +111,8 @@ export const fetchMovieDetails = payload => {
     type: 'FETCH_MOVIE_DETAILS',
     payload: new Promise((resolve, reject) => {
       return TMDB_fetchDetails({ id: payload })
-      .then(data => resolve(data.json()))
-      .catch(error => reject(error))
+        .then(data => resolve(data.json()))
+        .catch(error => reject(error))
     })
   }
 }
@@ -122,10 +127,10 @@ export const fetchAndReceiveQueryMeta = payload => (dispatch, getState) => {
     type: FETCH_AND_RECEIVE_QUERY_META,
     payload: new Promise((resolve, reject) => {
       return dispatch(fetchQueryMeta({ ...payload }))
-      .then(({ value, action }) => {
-        return dispatch(receiveQueryMeta({ ...value }))
-      })
-      .then(() => resolve())
+        .then(({ value, action }) => {
+          return dispatch(receiveQueryMeta({ ...value }))
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -136,10 +141,10 @@ export const fetchAndReceiveRandomMovie = payload => (dispatch, getState) => {
     type: FETCH_AND_RECEIVE_RANDOM_MOVIE,
     payload: new Promise((resolve, reject) => {
       return dispatch(fetchMovies({ ...payload }))
-      .then(({ value, action }) => {
-        return dispatch(receiveMovie(randomItem(value.results)))
-      })
-      .then(() => resolve())
+        .then(({ value, action }) => {
+          return dispatch(receiveMovie(randomItem(value.results)))
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -150,17 +155,17 @@ export const tryForTrailer = payload => (dispatch, getState) => {
     type: TRY_FOR_TRAILER,
     payload: new Promise((resolve, reject) => {
       return dispatch(fetchAndReceiveRandomMovie({ ...payload }))
-      .then(() => {
-        return dispatch(fetchMovieDetails(getState().player.currentMovieId))
-      })
-      .then(({ value, action }) => {
-        if (value.videos.results.length) {
-          return dispatch(receiveMovieDetails(value))
-        } else {
-          return dispatch(tryForTrailer({ ...payload }))
-        }
-      })
-      .then(() => resolve())
+        .then(() => {
+          return dispatch(fetchMovieDetails(getState().player.currentMovieId))
+        })
+        .then(({ value, action }) => {
+          if (value.videos.results.length) {
+            return dispatch(receiveMovieDetails(value))
+          } else {
+            return dispatch(tryForTrailer({ ...payload }))
+          }
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -175,13 +180,15 @@ export const setGenreAndQuery = payload => (dispatch, getState) => {
     type: 'SET_GENRE_AND_QUERY',
     payload: new Promise((resolve, reject) => {
       return dispatch(setGenre(payload))
-      .then(() => {
-        return dispatch(queryForMovies({
-          genre: getState().player.genre,
-          years: getState().player.years
-        }))
-      })
-      .then(() => resolve())
+        .then(() => {
+          return dispatch(
+            queryForMovies({
+              genre: getState().player.genre,
+              years: getState().player.years
+            })
+          )
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -192,13 +199,15 @@ export const setYearsAndQuery = payload => (dispatch, getState) => {
     type: 'SET_YEARS_AND_QUERY',
     payload: new Promise((resolve, reject) => {
       dispatch(setYears(payload))
-      .then(() => {
-        return dispatch(queryForMovies({
-          genre: getState().player.genre,
-          years: getState().player.years
-        }))
-      })
-      .then(() => resolve())
+        .then(() => {
+          return dispatch(
+            queryForMovies({
+              genre: getState().player.genre,
+              years: getState().player.years
+            })
+          )
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -209,14 +218,17 @@ export const queryForMovies = payload => (dispatch, getState) => {
     type: 'QUERY_FOR_MOVIES',
     payload: new Promise((resolve, reject) => {
       dispatch(fetchAndReceiveQueryMeta({ ...payload }))
-      .then(() => {
-        return dispatch(tryForTrailer({
-          pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
-          genre: getState().player.genre,
-          years: getState().player.years
-        }))
-      })
-      .then(() => resolve())
+        .then(() => {
+          return dispatch(
+            tryForTrailer({
+              pageNumber:
+                Math.floor(Math.random() * getState().player.totalPages) + 1,
+              genre: getState().player.genre,
+              years: getState().player.years
+            })
+          )
+        })
+        .then(() => resolve())
     })
   })
 }
@@ -230,27 +242,32 @@ export const nextMovie = payload => (dispatch, getState) => {
     return dispatch({
       type: 'NEXT_MOVIE',
       payload: new Promise((resolve, reject) => {
-        return dispatch(fetchAndReceiveRandomMovie({
-          pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
-          genre: getState().player.genre,
-          years: getState().player.years
-        }))
-        .then(() => {
-          return dispatch(tryForTrailer({
-            pageNumber: Math.floor(Math.random() * getState().player.totalPages) + 1,
+        return dispatch(
+          fetchAndReceiveRandomMovie({
+            pageNumber:
+              Math.floor(Math.random() * getState().player.totalPages) + 1,
             genre: getState().player.genre,
             years: getState().player.years
-          }))
-        })
-        .then(() => resolve())
+          })
+        )
+          .then(() => {
+            return dispatch(
+              tryForTrailer({
+                pageNumber:
+                  Math.floor(Math.random() * getState().player.totalPages) + 1,
+                genre: getState().player.genre,
+                years: getState().player.years
+              })
+            )
+          })
+          .then(() => resolve())
       })
     })
   } else {
     return dispatch({
       type: 'NEXT_MOVIE',
       payload: new Promise((resolve, reject) => {
-        dispatch(queueForward())
-        .then(() => resolve())
+        dispatch(queueForward()).then(() => resolve())
       })
     })
   }
@@ -261,8 +278,7 @@ export const previousMovie = payload => (dispatch, getState) => {
   return dispatch({
     type: 'PREVIOUS_MOVIE',
     payload: new Promise((resolve, reject) => {
-      return dispatch(queueBackward())
-      .then(() => resolve())
+      return dispatch(queueBackward()).then(() => resolve())
     })
   })
 }

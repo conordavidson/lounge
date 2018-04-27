@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setGenreAndQuery, setYearsAndQuery } from '../actions'
-import Query from '../components/Query'
+import { setGenreAndQuery, setYearsAndQuery } from 'state/actions'
+import Query from 'components/Query'
 
 const mapStateToProps = state => {
   return {

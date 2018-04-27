@@ -1,4 +1,4 @@
-import { SAVE_MOVIE } from '../actions'
+import { SAVE_MOVIE } from 'state/actions'
 
 export const initialState = {
   savedMovies: {}

@@ -2,30 +2,27 @@ import React, { Component } from 'react'
 import './style.css'
 
 class Info extends Component {
-  currentMovie() {
-    const { movies, currentMovieId } = this.props;
-    return movies[currentMovieId];
-  }
+  directorNames() {
+    const { currentMovie } = this.props
 
-  directors() {
-    const directors = this.currentMovie().directors.reduce((result, director, index) => {
+    const directorNames = currentMovie.directors.reduce((result, director, index) => {
       return index === 0 ? result + director.name : result + `, ${director.name}`
     }, ``)
 
-    return `Directed By: ${directors}`
+    return `Directed By: ${directorNames}`
   }
 
   render() {
-    const { _STATUS_INITIALIZED, _STATUS_LOADING } = this.props;
+    const { _STATUS_INITIALIZED, _STATUS_LOADING, currentMovie } = this.props;
 
     return (
       <div className={`InfoComponent`}>
         {_STATUS_INITIALIZED && !_STATUS_LOADING ?
           <div>
             <mark className={`InfoComponent__icon`} />
-            <p className={`InfoComponent__title`}>{this.currentMovie().title}</p>
-            <p className={`InfoComponent__directors`}>{this.directors()}</p>
-            <p className={`InfoComponent__release_date`}>{this.currentMovie().release_date}</p>
+            <p className={`InfoComponent__title`}>{currentMovie.title}</p>
+            <p className={`InfoComponent__directors`}>{this.directorNames()}</p>
+            <p className={`InfoComponent__release_date`}>{currentMovie.release_date}</p>
           </div>
         :
           null

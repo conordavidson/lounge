@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import YouTube from 'react-youtube'
-import './style.css';
+import './style.css'
 
 class Player extends Component {
-  currentMovie() {
-    const { movies, currentMovieId } = this.props;
-    return movies[currentMovieId];
-  }
-
   render() {
-    const { _STATUS_INITIALIZED, _STATUS_LOADING } = this.props;
+    const { _STATUS_INITIALIZED, _STATUS_LOADING, currentMovie } = this.props
     return (
       <div className={`PlayerComponent`}>
-        {_STATUS_INITIALIZED && !_STATUS_LOADING ?
+        {_STATUS_INITIALIZED && !_STATUS_LOADING ? (
           <div className={`PlayerComponent__player`}>
             <YouTube
-              videoId = {this.currentMovie().trailer.key}
-              opts = {{
+              videoId={currentMovie.trailer.key}
+              opts={{
                 width: '100%',
                 height: '100%',
                 playerVars: {
@@ -30,14 +25,12 @@ class Player extends Component {
               }}
             />
           </div>
-        :
-          <div>
-            LOADING...
-          </div>
-        }
+        ) : (
+          <div>LOADING...</div>
+        )}
       </div>
     )
   }
 }
 
-export default Player;
+export default Player
