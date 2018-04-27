@@ -5,9 +5,9 @@ html, body {
 
 main {
   font-family: 'Arial';
-  text-shadow: -0.11rem 0.11rem 0 var(--color-primary);
-  -webkit-text-stroke-color: var(--color-primary);
-  color: var(--color-primary);
+  text-shadow: -0.11rem 0.11rem 0 #C89D00;
+  -webkit-text-stroke-color: #C89D00;
+  color: #C89D00;
   font-size: 1.5rem;
   font-weight: 700;
   -webkit-text-fill-color: #fff;

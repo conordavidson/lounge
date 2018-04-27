@@ -1,3 +1,5 @@
+@import "settings";
+
 .QueryComponent {
   position: absolute;
   display: flex;
@@ -45,13 +47,13 @@
     outline: none;
     font-size: 1.5rem;
     font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 var(--color-primary);
-    -webkit-text-stroke-color: var(--color-primary);
-    color: var(--color-primary);
+    text-shadow: -0.11rem 0.11rem 0 $color-primary;
+    -webkit-text-stroke-color: $color-primary;
+    color: $color-primary;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
     padding-bottom: .125rem;
-    border-bottom: 1px dotted var(--color-primary);
+    border-bottom: 1px dotted $color-primary;
   }
 
   button {

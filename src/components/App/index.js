@@ -1,19 +1,18 @@
 import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import reducers from '../../reducers'
+import reducers from 'reducers'
 
 import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 
-import Player from '../../containers/PlayerContainer'
-import Query from '../../containers/QueryContainer'
-import Controls from '../../containers/ControlsContainer'
-import Info from '../../containers/InfoContainer'
+import Player from 'containers/PlayerContainer'
+import Query from 'containers/QueryContainer'
+import Controls from 'containers/ControlsContainer'
+import Info from 'containers/InfoContainer'
 
 import './style.css'
-import './base.css'
-import './reset.css'
+import 'styles/reset.css'
 
 const store = createStore(
   reducers,

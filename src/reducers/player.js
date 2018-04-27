@@ -1,6 +1,13 @@
 import {
-  SET_GENRE, SET_YEARS, QUEUE_FORWARD, QUEUE_BACKWARD, RECEIVE_QUERY_META,
-  RECEIVE_MOVIE, RECEIVE_MOVIE_DETAILS, FETCH_QUERY_META, FETCH_MOVIES,
+  SET_GENRE,
+  SET_YEARS,
+  QUEUE_FORWARD,
+  QUEUE_BACKWARD,
+  RECEIVE_QUERY_META,
+  RECEIVE_MOVIE,
+  RECEIVE_MOVIE_DETAILS,
+  FETCH_QUERY_META,
+  FETCH_MOVIES,
   FETCH_MOVIE_DETAILS
 } from '../actions'
 
@@ -37,16 +44,18 @@ export default (state = initialState, action) => {
     case `${QUEUE_FORWARD}_FULFILLED`:
       return {
         ...state,
-        currentMovieId: state.queue[
-          state.queue.findIndex(id => id === state.currentMovieId) + 1
-        ]
+        currentMovieId:
+          state.queue[
+            state.queue.findIndex(id => id === state.currentMovieId) + 1
+          ]
       }
     case `${QUEUE_BACKWARD}_FULFILLED`:
       return {
         ...state,
-        currentMovieId: state.queue[
-          state.queue.findIndex(id => id === state.currentMovieId) - 1
-        ]
+        currentMovieId:
+          state.queue[
+            state.queue.findIndex(id => id === state.currentMovieId) - 1
+          ]
       }
     case `${RECEIVE_QUERY_META}_FULFILLED`:
       return {
@@ -85,19 +94,19 @@ export default (state = initialState, action) => {
     case `${FETCH_QUERY_META}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true,
+        _STATUS_LOADING: true
       }
     case `${FETCH_MOVIES}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true,
+        _STATUS_LOADING: true
       }
     case `${FETCH_MOVIE_DETAILS}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true,
+        _STATUS_LOADING: true
       }
     default:
-      return state;
+      return state
   }
-};
+}

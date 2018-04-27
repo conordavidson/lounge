@@ -15,8 +15,9 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar --include-path src/styles --match-regex '^(?!_).+' src/ -o src/",
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path src/styles --match-regex '^(?!_).+' src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",

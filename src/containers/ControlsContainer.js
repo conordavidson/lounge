@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { nextMovie, previousMovie } from '../actions'
 import { bindActionCreators } from 'redux'
-import Controls from '../components/controls'
+import Controls from '../components/Controls'
 
 const mapStateToProps = state => {
   return {

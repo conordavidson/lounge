@@ -1,8 +1,8 @@
-import { SAVE_MOVIE } from '../actions';
+import { SAVE_MOVIE } from '../actions'
 
 export const initialState = {
   savedMovies: {}
-};
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -13,8 +13,8 @@ export default (state = initialState, action) => {
           ...state.savedMovies,
           [action.payload.id]: action.payload
         }
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Info from '../components/info'
+import Info from '../components/Info'
 
 const mapStateToProps = state => {
   return {
