@@ -1,8 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Genres from '../../external/themoviedb/genres.js'
+import Language from 'constants/Language'
+import cx from 'classnames'
+import { CSSTransitionGroup } from 'react-transition-group'
+import { debounce } from 'throttle-debounce'
 import './style.css'
 
 class Query extends Component {
+  constructor(props) {
+    super(props)
+    this.validateYears = debounce(500, this.validateYears);
+    this.state = {
+      minYear: null,
+      maxYear: null,
+      errors: []
+    }
+  }
+
   genreDropdown() {
     const { genre, actions: { setGenreAndQuery } } = this.props
 
@@ -20,34 +34,94 @@ class Query extends Component {
     })
   }
 
-  setYear(e) {
-    const { actions: { setYearsAndQuery } } = this.props
+  setYearsAndQuery(e) {
     e.preventDefault()
-    const min = parseInt(e.target.min.value, 10) || null
-    const max = parseInt(e.target.max.value, 10) || null
-    return setYearsAndQuery({ min, max })
+    const { actions: { setYearsAndQuery } } = this.props
+    const { minYear, maxYear } = this.state
+    return setYearsAndQuery({ minYear, maxYear })
+  }
+
+  validateYears() {
+    const { minYear, maxYear } = this.state
+    const currentYear = new Date().getFullYear()
+    const errors = []
+    if (minYear > maxYear && maxYear !== null) {
+      errors.push(Language.errors.yearsReversed)
+    }
+    if (maxYear < 1900 && maxYear !== null) {
+      errors.push(Language.errors.maxYearTooEarly)
+    }
+    if (minYear > currentYear) {
+      errors.push(Language.errors.minYearInFuture)
+    }
+    if (!(/^\d{4}$/).test(minYear) && minYear !== null) {
+      errors.push(Language.errors.invalidMinYear)
+    }
+    if (!(/^\d{4}$/).test(maxYear) && maxYear !== null) {
+      errors.push(Language.errors.invalidMaxYear)
+    }
+    this.setState({ errors })
+  }
+
+  setYears(changed, e) {
+    this.setState(
+      {
+        [changed]: parseInt(e.target.value, 10) || null
+      },
+      () => this.validateYears()
+    )
   }
 
   yearSelector() {
     return (
-      <form onSubmit={(e) => this.setYear(e)}>
+      <form onSubmit={e => this.setYearsAndQuery(e)}>
         <label>FROM</label>
-        <input name='min' type='text'/>
+        <input
+          onChange={e => this.setYears('minYear', e)}
+          name="minYear"
+          type="text"
+          maxLength="4"
+          size="4"
+        />
         <label>TO</label>
-        <input name='max' type='text'/>
-        <button type='submit'/>
+        <input
+          onChange={e => this.setYears('maxYear', e)}
+          name="maxYear"
+          type="text"
+          maxLength="4"
+          size="4"
+        />
+        <button type="submit" />
       </form>
     )
   }
 
+  errorTooltip() {
+    const { errors } = this.state
+    const errorText = errors.map((error, i) => <p key={i}>{error}</p>)
+    const classes = cx('QueryComponent__error-tooltip')
+    return <div className={classes}>{errorText}</div>
+  }
+
   render() {
+    const { errors } = this.state
+
     return (
       <div className={`QueryComponent`}>
         <ul>{this.genreDropdown()}</ul>
-        <div>{this.yearSelector()}</div>
+        <div className={`QueryComponent__years`}>
+          {this.yearSelector()}
+          <CSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+          >
+            {errors.length ? this.errorTooltip() : null}
+          </CSSTransitionGroup>
+        </div>
       </div>
     )
   }
 }
 
-export default Query;
+export default Query

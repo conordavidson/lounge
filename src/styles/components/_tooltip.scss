@@ -1,0 +1,21 @@
+@mixin tooltip {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  max-width: 10rem;
+  margin-top: .5rem;
+  padding: 1rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -.5rem;
+    width: 0;
+    height: 0;
+    border-left: .5rem solid transparent;
+    border-right: .5rem solid transparent;
+    border-bottom: .5rem solid black;
+  }
+}

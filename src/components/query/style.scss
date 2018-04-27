@@ -1,4 +1,4 @@
-@import "settings";
+@import "settings", "components";
 
 .QueryComponent {
   position: absolute;
@@ -38,25 +38,40 @@
   }
 
   input {
+    @include type-deco;
     width: 4rem;
     text-align: center;
-    font-family: 'Arial';
     border: none;
     padding: 0;
     background-color: rgba(0, 0, 0, 0);
     outline: none;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 $color-primary;
-    -webkit-text-stroke-color: $color-primary;
-    color: $color-primary;
-    -webkit-text-fill-color: #fff;
-    -webkit-text-stroke-width: .5px;
     padding-bottom: .125rem;
     border-bottom: 1px dotted $color-primary;
   }
 
   button {
     display: none;
+  }
+
+  &__years {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    form {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__error-tooltip {
+    @include type-body;
+    @include tooltip;
+    @include drop-shadow-small;
+    background-color: $color-black;
+    color: $color-white;
+
+    p:not(:first-child) {
+      margin-top: .5rem;
+    }
   }
 }
