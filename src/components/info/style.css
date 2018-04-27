@@ -1,18 +1,18 @@
-.info_component {
+.InfoComponent {
   position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 100; }
-  .info_component p {
+  .InfoComponent p {
     opacity: 0;
     font-size: 0;
     transition: opacity .25s ease-in-out; }
-  .info_component:hover p {
+  .InfoComponent:hover p {
     opacity: 100;
     font-size: inherit; }
-    .info_component:hover p.info_component--title {
+    .InfoComponent:hover p.InfoComponent__title {
       font-size: 2rem; }
-  .info_component .info_component--icon {
+  .InfoComponent .InfoComponent__icon {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
@@ -22,7 +22,7 @@
     background-color: transparent;
     text-align: center;
     cursor: pointer; }
-    .info_component .info_component--icon::before {
+    .InfoComponent .InfoComponent__icon::before {
       content: 'i';
       display: block;
       position: relative;

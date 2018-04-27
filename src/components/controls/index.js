@@ -3,10 +3,12 @@ import './style.css'
 
 class Controls extends Component {
   render() {
+    const { actions: { previousMovie, nextMovie } } = this.props
+
     return (
-      <div className={`controls_component`}>
-        <a onClick = {() => this.props.previousMovie()}>PREV</a>
-        <a onClick = {() => this.props.nextMovie()}>NEXT</a>
+      <div className={`ControlsComponent`}>
+        <a onClick = {() => previousMovie()}>PREV</a>
+        <a onClick = {() => nextMovie()}>NEXT</a>
       </div>
     )
   }

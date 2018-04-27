@@ -4,13 +4,15 @@ import './style.css'
 
 class Query extends Component {
   genreDropdown() {
+    const { genre, actions: { setGenreAndQuery } } = this.props
+
     return Object.keys(Genres).map(genreName => {
       const genreId = Genres[genreName]
       return (
         <li
-          className={genreId === this.props.genre ? 'active' : null}
+          className={genreId === genre ? 'active' : null}
           key={genreId}
-          onClick={() => this.props.setGenreAndQuery(genreId)}
+          onClick={() => setGenreAndQuery(genreId)}
         >
           {genreName}
         </li>
@@ -19,10 +21,11 @@ class Query extends Component {
   }
 
   setYear(e) {
+    const { actions: { setYearsAndQuery } } = this.props
     e.preventDefault()
     const min = parseInt(e.target.min.value, 10) || null
     const max = parseInt(e.target.max.value, 10) || null
-    this.props.setYearsAndQuery({ min, max })
+    return setYearsAndQuery({ min, max })
   }
 
   yearSelector() {
@@ -39,7 +42,7 @@ class Query extends Component {
 
   render() {
     return (
-      <div className={`query_component`}>
+      <div className={`QueryComponent`}>
         <ul>{this.genreDropdown()}</ul>
         <div>{this.yearSelector()}</div>
       </div>

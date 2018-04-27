@@ -1,14 +1,14 @@
-.controls_component {
+.ControlsComponent {
   position: absolute;
   bottom: 1rem;
   left: 0;
   right: 0;
   text-align: center;
   z-index: 100; }
-  .controls_component a {
+  .ControlsComponent a {
     cursor: pointer;
     transition: opacity .25s ease-in-out; }
-    .controls_component a:hover {
+    .ControlsComponent a:hover {
       opacity: .7; }
-    .controls_component a:first-child {
+    .ControlsComponent a:first-child {
       margin-right: 1rem; }

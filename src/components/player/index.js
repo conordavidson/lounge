@@ -4,14 +4,16 @@ import './style.css';
 
 class Player extends Component {
   currentMovie() {
-    return this.props.movies[this.props.currentMovieId]
+    const { movies, currentMovieId } = this.props;
+    return movies[currentMovieId];
   }
 
   render() {
+    const { _STATUS_INITIALIZED, _STATUS_LOADING } = this.props;
     return (
-      <div className={`player_component`}>
-        {this.props._STATUS_INITIALIZED && !this.props._STATUS_LOADING ?
-          <div className={`player`}>
+      <div className={`PlayerComponent`}>
+        {_STATUS_INITIALIZED && !_STATUS_LOADING ?
+          <div className={`PlayerComponent__player`}>
             <YouTube
               videoId = {this.currentMovie().trailer.key}
               opts = {{

@@ -1,4 +1,4 @@
-.info_component {
+.InfoComponent {
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -14,12 +14,12 @@
     opacity: 100;
     font-size: inherit;
 
-    &.info_component--title {
+    &.InfoComponent__title {
       font-size: 2rem;
     }
   }
 
-  .info_component--icon {
+  .InfoComponent__icon {
     display: block;
     width: 1.5rem;
     height: 1.5rem;

@@ -1,28 +1,28 @@
-.query_component {
+.QueryComponent {
   position: absolute;
   display: flex;
   flex-flow: row nowrap;
   top: 1rem;
   right: 1rem;
   z-index: 100; }
-  .query_component ul {
+  .QueryComponent ul {
     cursor: pointer;
     display: inline-flex;
     flex-flow: column nowrap;
     margin-right: 3rem; }
-    .query_component ul li {
+    .QueryComponent ul li {
       opacity: 0;
       transition: opacity .25s ease-in-out; }
-      .query_component ul li.active {
+      .QueryComponent ul li.active {
         position: absolute;
         opacity: 100; }
-      .query_component ul li:first-child {
+      .QueryComponent ul li:first-child {
         margin-top: 1.5rem; }
-    .query_component ul:hover li {
+    .QueryComponent ul:hover li {
       opacity: 1; }
-      .query_component ul:hover li:hover {
+      .QueryComponent ul:hover li:hover {
         opacity: .7; }
-  .query_component input {
+  .QueryComponent input {
     width: 4rem;
     text-align: center;
     font-family: 'Arial';
@@ -39,5 +39,5 @@
     -webkit-text-stroke-width: .5px;
     padding-bottom: .125rem;
     border-bottom: 1px dotted var(--color-primary); }
-  .query_component button {
+  .QueryComponent button {
     display: none; }

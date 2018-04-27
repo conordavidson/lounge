@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { nextMovie, previousMovie } from '../actions'
+import { bindActionCreators } from 'redux'
 import Controls from '../components/controls'
 
 const mapStateToProps = state => {
@@ -10,18 +11,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    nextMovie: () => {
-      dispatch(nextMovie())
-    },
-    previousMovie: () => {
-      dispatch(previousMovie())
-    }
+    actions: bindActionCreators(
+      {
+        nextMovie,
+        previousMovie
+      },
+      dispatch
+    )
   }
 }
 
-const ControlsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Controls)
-
-export default ControlsContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Controls)

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { setGenreAndQuery, setYearsAndQuery } from '../actions'
 import Query from '../components/query'
 
@@ -10,18 +11,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setGenreAndQuery: payload => {
-      dispatch(setGenreAndQuery(payload))
-    },
-    setYearsAndQuery: payload => {
-      dispatch(setYearsAndQuery(payload))
-    }
+    actions: bindActionCreators(
+      {
+        setGenreAndQuery,
+        setYearsAndQuery
+      },
+      dispatch
+    )
   }
 }
 
-const QueryContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Query)
-
-export default QueryContainer
+export default connect(mapStateToProps, mapDispatchToProps)(Query)

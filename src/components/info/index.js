@@ -3,7 +3,8 @@ import './style.css'
 
 class Info extends Component {
   currentMovie() {
-    return this.props.movies[this.props.currentMovieId]
+    const { movies, currentMovieId } = this.props;
+    return movies[currentMovieId];
   }
 
   directors() {
@@ -15,14 +16,16 @@ class Info extends Component {
   }
 
   render() {
+    const { _STATUS_INITIALIZED, _STATUS_LOADING } = this.props;
+
     return (
-      <div className={`info_component`}>
-        {this.props._STATUS_INITIALIZED && !this.props._STATUS_LOADING ?
+      <div className={`InfoComponent`}>
+        {_STATUS_INITIALIZED && !_STATUS_LOADING ?
           <div>
-            <mark className={`info_component--icon`} />
-            <p className={`info_component--title`}>{this.currentMovie().title}</p>
-            <p className={`info_component--directors`}>{this.directors()}</p>
-            <p className={`info_component--release_date`}>{this.currentMovie().release_date}</p>
+            <mark className={`InfoComponent__icon`} />
+            <p className={`InfoComponent__title`}>{this.currentMovie().title}</p>
+            <p className={`InfoComponent__directors`}>{this.directors()}</p>
+            <p className={`InfoComponent__release_date`}>{this.currentMovie().release_date}</p>
           </div>
         :
           null

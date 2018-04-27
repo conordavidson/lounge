@@ -7,6 +7,4 @@ const mapStateToProps = state => {
   }
 }
 
-const PlayerContainer = connect(mapStateToProps)(Player)
-
-export default PlayerContainer
+export default connect(mapStateToProps)(Player)
