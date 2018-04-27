@@ -8,35 +8,6 @@
   right: 1rem;
   z-index: 100;
 
-  ul {
-    cursor: pointer;
-    display: inline-flex;
-    flex-flow: column nowrap;
-    margin-right: 3rem;
-
-    li {
-      opacity: 0;
-      transition: opacity .25s ease-in-out;
-
-      &.active {
-        position: absolute;
-        opacity: 100;
-      }
-
-      &:first-child {
-        margin-top: 1.5rem;
-      }
-    }
-
-    &:hover li {
-      opacity: 1;
-
-      &:hover {
-        opacity: .7;
-      }
-    }
-  }
-
   input {
     @include type-deco;
     width: 4rem;
@@ -74,4 +45,51 @@
       margin-top: .5rem;
     }
   }
+}
+
+.GenreDropdown {
+  pointer-events: none;
+  cursor: pointer;
+  display: inline-flex;
+  flex-flow: column nowrap;
+  margin-right: 3rem;
+
+  &__list {
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+  }
+
+  &__selected-genre {
+    pointer-events: all;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &::after {
+      content: '';
+      transition: transform .2s ease-in-out;
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: .3275rem solid transparent;
+      border-right: .3275rem solid transparent;
+      border-bottom: .3275rem solid $color-primary;
+      border-top: none;
+    }
+  }
+
+  &:hover &__selected-genre:after {
+    transform: rotate(180deg);
+  }
+
+  &:hover .GenreDropdown__list {
+    pointer-events: all;
+    opacity: 1;
+
+    .GenreDropdown__item:hover {
+      opacity: .7;
+    }
+  }
+
+
 }

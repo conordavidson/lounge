@@ -9,7 +9,7 @@ import './style.css'
 class Query extends Component {
   constructor(props) {
     super(props)
-    this.validateYears = debounce(500, this.validateYears);
+    this.validateYears = debounce(500, this.validateYears)
     this.state = {
       minYear: null,
       maxYear: null,
@@ -20,25 +20,35 @@ class Query extends Component {
   genreDropdown() {
     const { genre, actions: { setGenreAndQuery } } = this.props
 
-    return Object.keys(Genres).map(genreName => {
-      const genreId = Genres[genreName]
-      return (
-        <li
-          className={genreId === genre ? 'active' : null}
-          key={genreId}
-          onClick={() => setGenreAndQuery(genreId)}
-        >
-          {genreName}
-        </li>
-      )
-    })
+    return (
+      <div className={`GenreDropdown`}>
+        <div className={`GenreDropdown__selected-genre`}>
+          {genre ? Language.genres[genre] : 'All'}
+        </div>
+        <ul className={`GenreDropdown__list`}>
+          {Object.keys(Genres)
+            .filter(key => key !== genre)
+            .map(key => {
+              return (
+                <li
+                  className={`GenreDropdown__item`}
+                  key={key}
+                  onClick={() => setGenreAndQuery(key)}
+                >
+                  {Language.genres[key]}
+                </li>
+              )
+            })}
+        </ul>
+      </div>
+    )
   }
 
   setYearsAndQuery(e) {
     e.preventDefault()
     const { actions: { setYearsAndQuery } } = this.props
     const { minYear, maxYear } = this.state
-    return setYearsAndQuery({ minYear, maxYear })
+    return setYearsAndQuery({ min: minYear, max: maxYear })
   }
 
   validateYears() {
@@ -54,10 +64,10 @@ class Query extends Component {
     if (minYear > currentYear) {
       errors.push(Language.errors.minYearInFuture)
     }
-    if (!(/^\d{4}$/).test(minYear) && minYear !== null) {
+    if (!/^\d{4}$/.test(minYear) && minYear !== null) {
       errors.push(Language.errors.invalidMinYear)
     }
-    if (!(/^\d{4}$/).test(maxYear) && maxYear !== null) {
+    if (!/^\d{4}$/.test(maxYear) && maxYear !== null) {
       errors.push(Language.errors.invalidMaxYear)
     }
     this.setState({ errors })
@@ -104,11 +114,12 @@ class Query extends Component {
   }
 
   render() {
+    const { genre } = this.props
     const { errors } = this.state
 
     return (
       <div className={`QueryComponent`}>
-        <ul>{this.genreDropdown()}</ul>
+        <div>{this.genreDropdown()}</div>
         <div className={`QueryComponent__years`}>
           {this.yearSelector()}
           <CSSTransitionGroup
