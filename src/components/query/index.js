@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import Genres from '../../external/themoviedb/genres.js'
-import Language from 'constants/Language'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { debounce } from 'throttle-debounce'
+import Genres from '../../external/themoviedb/genres.js'
+import Language from 'constants/Language'
+import HideMe from 'components/HideMe'
 import './style.css'
 
 class Query extends Component {
@@ -83,7 +84,7 @@ class Query extends Component {
 
   yearSelector() {
     return (
-      <form onSubmit={e => this.setYearsAndQuery(e)}>
+      <form onSubmit={e => this.setYearsAndQuery(e)} autocomplete="off">
         <label>FROM</label>
         <input
           onChange={e => this.setYears('minYear', e)}
@@ -108,30 +109,28 @@ class Query extends Component {
   errorTooltip() {
     const { errors } = this.state
     const errorText = errors.map((error, i) => <p key={i}>{error}</p>)
-    return (
-      <div className={'QueryComponent__error-tooltip'}>
-        {errorText}
-      </div>
-    )
+    return <div className={'QueryComponent__error-tooltip'}>{errorText}</div>
   }
 
   render() {
     const { errors } = this.state
 
     return (
-      <div className={`QueryComponent`}>
-        <div>{this.genreDropdown()}</div>
-        <div className={`QueryComponent__years`}>
-          {this.yearSelector()}
-          <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}
-          >
-            {errors.length ? this.errorTooltip() : null}
-          </CSSTransitionGroup>
+      <HideMe displayedOnHome>
+        <div className={`QueryComponent`}>
+          <div>{this.genreDropdown()}</div>
+          <div className={`QueryComponent__years`}>
+            {this.yearSelector()}
+            <CSSTransitionGroup
+              transitionName="fade"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+            >
+              {errors.length ? this.errorTooltip() : null}
+            </CSSTransitionGroup>
+          </div>
         </div>
-      </div>
+      </HideMe>
     )
   }
 }

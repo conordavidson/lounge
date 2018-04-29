@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from 'state/reducers'
@@ -24,17 +24,13 @@ const store = createStore(
   ))
 )
 
-export default class extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <main>
-          <Player />
-          <Query />
-          <Controls />
-          <Info />
-        </main>
-      </Provider>
-    )
-  }
-};
+export default () => (
+  <Provider store={store}>
+    <main>
+      <Player />
+      <Query />
+      <Controls />
+      <Info />
+    </main>
+  </Provider>
+)

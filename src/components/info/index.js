@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import HideMe from 'components/HideMe'
 import { TRAILER } from 'constants/PlayerViews'
 import './style.css'
 
@@ -23,14 +24,16 @@ class Info extends Component {
     if (currentPlayerView !== TRAILER) return null
 
     return (
-      <div className={`InfoComponent`}>
-        <mark className={`InfoComponent__icon`} />
-        <p className={`InfoComponent__title`}>{currentMovie.title}</p>
-        <p className={`InfoComponent__directors`}>{this.directorNames()}</p>
-        <p className={`InfoComponent__release_date`}>
-          {currentMovie.release_date}
-        </p>
-      </div>
+      <HideMe>
+        <div className={`InfoComponent`}>
+          <mark className={`InfoComponent__icon`} />
+          <p className={`InfoComponent__title`}>{currentMovie.title}</p>
+          <p className={`InfoComponent__directors`}>{this.directorNames()}</p>
+          <p className={`InfoComponent__release_date`}>
+            {currentMovie.release_date}
+          </p>
+        </div>
+      </HideMe>
     )
   }
 }
