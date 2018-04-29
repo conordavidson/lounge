@@ -114,7 +114,6 @@ class Query extends Component {
   }
 
   render() {
-    const { genre } = this.props
     const { errors } = this.state
 
     return (

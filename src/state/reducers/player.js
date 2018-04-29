@@ -8,7 +8,11 @@ import {
   RECEIVE_MOVIE_DETAILS,
   FETCH_QUERY_META,
   FETCH_MOVIES,
-  FETCH_MOVIE_DETAILS
+  FETCH_MOVIE_DETAILS,
+  UNSUCCESSFUL_TRAILER_ATTEMPT,
+  SUCCESSFUL_TRAILER_ATTEMPT,
+  TRAILER_FETCH_DIFFICULTY,
+  END_TRAILER_FETCH_TIMEOUT
 } from '../actions'
 
 export const initialState = {
@@ -23,7 +27,9 @@ export const initialState = {
   years: {
     min: null,
     max: null
-  }
+  },
+  unsuccessfulTrailerAttempts: 0,
+  trailerFetchDifficulty: false
 }
 
 export default (state = initialState, action) => {
@@ -56,6 +62,27 @@ export default (state = initialState, action) => {
           state.queue[
             state.queue.findIndex(id => id === state.currentMovieId) - 1
           ]
+      }
+    case `${UNSUCCESSFUL_TRAILER_ATTEMPT}_FULFILLED`:
+      return {
+        ...state,
+        unsuccessfulTrailerAttempts: state.unsuccessfulTrailerAttempts + 1
+      }
+    case `${SUCCESSFUL_TRAILER_ATTEMPT}_FULFILLED`:
+      return {
+        ...state,
+        unsuccessfulTrailerAttempts: 0
+      }
+    case `${TRAILER_FETCH_DIFFICULTY}_FULFILLED`:
+      return {
+        ...state,
+        trailerFetchDifficulty: true,
+      }
+    case `${END_TRAILER_FETCH_TIMEOUT}_FULFILLED`:
+      return {
+        ...state,
+        trailerFetchDifficulty: false,
+        unsuccessfulTrailerAttempts: 0
       }
     case `${RECEIVE_QUERY_META}_FULFILLED`:
       return {

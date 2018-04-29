@@ -39,6 +39,52 @@ export const queueBackward = () => {
   }
 }
 
+export const UNSUCCESSFUL_TRAILER_ATTEMPT = 'UNSUCCESSFUL_TRAILER_ATTEMPT'
+export const unsuccessfulTrailerAttempt = () => {
+  return {
+    type: UNSUCCESSFUL_TRAILER_ATTEMPT,
+    payload: Promise.resolve()
+  }
+}
+
+export const SUCCESSFUL_TRAILER_ATTEMPT = 'SUCCESSFUL_FETCH_ATTEMPT'
+export const successfulTrailerAttempt = () => {
+  return {
+    type: SUCCESSFUL_TRAILER_ATTEMPT,
+    payload: Promise.resolve()
+  }
+}
+
+export const TRAILER_FETCH_DIFFICULTY = 'TRAILER_FETCH_DIFFICULTY'
+export const trailerFetchDifficulty = () => dispatch => {
+  return dispatch({
+    type: TRAILER_FETCH_DIFFICULTY,
+    payload: Promise.resolve()
+  })
+  .then(() => {
+    return dispatch(startTrailerFetchTimeout())
+  })
+}
+
+export const START_TRAILER_FETCH_TIMEOUT = 'START_TRAILER_FETCH_TIMEOUT'
+export const startTrailerFetchTimeout = () => dispatch => {
+  return dispatch({
+    type: START_TRAILER_FETCH_TIMEOUT,
+    payload: Promise.resolve()
+  })
+  .then(() => {
+    setTimeout(() => dispatch(endTrailerFetchTimeout()), 10000)
+  })
+}
+
+export const END_TRAILER_FETCH_TIMEOUT = 'END_TRAILER_FETCH_TIMEOUT'
+export const endTrailerFetchTimeout = () => {
+  return {
+    type: END_TRAILER_FETCH_TIMEOUT,
+    payload: Promise.resolve()
+  }
+}
+
 /*
 Data receiving
 */
@@ -81,14 +127,14 @@ export const fetchQueryMeta = payload => {
         years: payload.years,
         pageNumber: 1
       })
-        .then(data => data.json())
-        .catch(error => reject(error))
-        .then(data =>
-          resolve({
-            ...data,
-            ...payload
-          })
-        )
+      .then(data => data.json())
+      .catch(error => reject(error))
+      .then(data => {
+        resolve({
+          ...data,
+          ...payload
+        })
+      })
     })
   }
 }
@@ -129,8 +175,8 @@ export const fetchAndReceiveQueryMeta = payload => (dispatch, getState) => {
       return dispatch(fetchQueryMeta({ ...payload }))
         .then(({ value, action }) => {
           return dispatch(receiveQueryMeta({ ...value }))
+          .then(() => resolve())
         })
-        .then(() => resolve())
     })
   })
 }
@@ -143,8 +189,8 @@ export const fetchAndReceiveRandomMovie = payload => (dispatch, getState) => {
       return dispatch(fetchMovies({ ...payload }))
         .then(({ value, action }) => {
           return dispatch(receiveMovie(randomItem(value.results)))
+          .then(() => resolve())
         })
-        .then(() => resolve())
     })
   })
 }
@@ -157,15 +203,26 @@ export const tryForTrailer = payload => (dispatch, getState) => {
       return dispatch(fetchAndReceiveRandomMovie({ ...payload }))
         .then(() => {
           return dispatch(fetchMovieDetails(getState().player.currentMovieId))
+          .then(({ value, action }) => {
+            if (value.videos.results.length) {
+              return dispatch(successfulTrailerAttempt())
+              .then(() => {
+                return dispatch(receiveMovieDetails(value))
+                .then(() => resolve())
+              })
+            } else {
+              if (getState().player.unsuccessfulTrailerAttempts > 39) {
+                reject()
+              } else {
+                return dispatch(unsuccessfulTrailerAttempt())
+                .then(() => {
+                  return dispatch(tryForTrailer({ ...payload }))
+                  .catch(() => dispatch(trailerFetchDifficulty()))
+                })
+              }
+            }
+          })
         })
-        .then(({ value, action }) => {
-          if (value.videos.results.length) {
-            return dispatch(receiveMovieDetails(value))
-          } else {
-            return dispatch(tryForTrailer({ ...payload }))
-          }
-        })
-        .then(() => resolve())
     })
   })
 }
@@ -187,8 +244,9 @@ export const setGenreAndQuery = payload => (dispatch, getState) => {
               years: getState().player.years
             })
           )
+          .then(() => resolve())
         })
-        .then(() => resolve())
+
     })
   })
 }
@@ -199,15 +257,15 @@ export const setYearsAndQuery = payload => (dispatch, getState) => {
     type: 'SET_YEARS_AND_QUERY',
     payload: new Promise((resolve, reject) => {
       dispatch(setYears(payload))
-        .then(() => {
-          return dispatch(
-            queryForMovies({
-              genre: getState().player.genre,
-              years: getState().player.years
-            })
-          )
-        })
+      .then(() => {
+        return dispatch(
+          queryForMovies({
+            genre: getState().player.genre,
+            years: getState().player.years
+          })
+        )
         .then(() => resolve())
+      })
     })
   })
 }
@@ -218,17 +276,18 @@ export const queryForMovies = payload => (dispatch, getState) => {
     type: 'QUERY_FOR_MOVIES',
     payload: new Promise((resolve, reject) => {
       dispatch(fetchAndReceiveQueryMeta({ ...payload }))
-        .then(() => {
-          return dispatch(
-            tryForTrailer({
-              pageNumber:
-                Math.floor(Math.random() * getState().player.totalPages) + 1,
-              genre: getState().player.genre,
-              years: getState().player.years
-            })
-          )
-        })
+      .then(() => {
+        return dispatch(
+          tryForTrailer({
+            pageNumber:
+              Math.floor(Math.random() * getState().player.totalPages) + 1,
+            genre: getState().player.genre,
+            years: getState().player.years
+          })
+        )
+        .catch(() => dispatch(trailerFetchDifficulty()))
         .then(() => resolve())
+      })
     })
   })
 }
@@ -250,17 +309,18 @@ export const nextMovie = payload => (dispatch, getState) => {
             years: getState().player.years
           })
         )
-          .then(() => {
-            return dispatch(
-              tryForTrailer({
-                pageNumber:
-                  Math.floor(Math.random() * getState().player.totalPages) + 1,
-                genre: getState().player.genre,
-                years: getState().player.years
-              })
-            )
-          })
+        .then(() => {
+          return dispatch(
+            tryForTrailer({
+              pageNumber:
+                Math.floor(Math.random() * getState().player.totalPages) + 1,
+              genre: getState().player.genre,
+              years: getState().player.years
+            })
+          )
+          .catch(() => dispatch(trailerFetchDifficulty()))
           .then(() => resolve())
+        })
       })
     })
   } else {
