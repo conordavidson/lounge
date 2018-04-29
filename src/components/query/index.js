@@ -84,7 +84,7 @@ class Query extends Component {
 
   yearSelector() {
     return (
-      <form onSubmit={e => this.setYearsAndQuery(e)} autocomplete="off">
+      <form onSubmit={e => this.setYearsAndQuery(e)} autoComplete="off">
         <label>FROM</label>
         <input
           onChange={e => this.setYears('minYear', e)}

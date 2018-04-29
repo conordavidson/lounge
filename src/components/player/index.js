@@ -8,6 +8,17 @@ import { INTERMISSION, LOADING, TRAILER, HOME } from 'constants/PlayerViews'
 import './style.css'
 
 class Player extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      youtubePlayer: null
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keypress", this.togglePausePlayVideo);
+  }
+
   intermissionView() {
     return (
       <div key={'intermissionView'} className={`PlayerComponent__text`}>
@@ -60,12 +71,13 @@ class Player extends Component {
         <YouTube
           videoId={currentMovie.trailer.key}
           onEnd={nextMovie}
+          onReady={this.setYoutubePlayerInstance}
           opts={{
             width: '100%',
             height: '100%',
             playerVars: {
               autoplay: 1,
-              controls: 1,
+              controls: 0,
               modestbranding: 1,
               rel: 0,
               showinfo: 0,
@@ -75,6 +87,23 @@ class Player extends Component {
         />
       </div>
     )
+  }
+
+  setYoutubePlayerInstance = (event) => {
+    this.setState({
+      youtubePlayer: event.target
+    })
+  }
+
+  togglePausePlayVideo = (e) => {
+    if (e.code !== 'Space') return
+    const { youtubePlayer } = this.state
+    const state = youtubePlayer.getPlayerState();
+    if (state === 1) {
+      youtubePlayer.pauseVideo()
+    } else {
+      youtubePlayer.playVideo()
+    }
   }
 
   viewSwitch() {
@@ -99,6 +128,7 @@ class Player extends Component {
     return (
       <div
         className={`PlayerComponent`}
+        tabIndex="0"
         onMouseMove={debounce(50, startControlDisplayTimeout)}
       >
         <CSSTransitionGroup
