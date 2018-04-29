@@ -1,4 +1,7 @@
+@import "settings";
+
 .ControlsComponent {
+  @include type-deco;
   position: absolute;
   bottom: 1rem;
   left: 0;

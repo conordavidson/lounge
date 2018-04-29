@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Genres from '../../external/themoviedb/genres.js'
 import Language from 'constants/Language'
-import cx from 'classnames'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { debounce } from 'throttle-debounce'
 import './style.css'
@@ -109,8 +108,11 @@ class Query extends Component {
   errorTooltip() {
     const { errors } = this.state
     const errorText = errors.map((error, i) => <p key={i}>{error}</p>)
-    const classes = cx('QueryComponent__error-tooltip')
-    return <div className={classes}>{errorText}</div>
+    return (
+      <div className={'QueryComponent__error-tooltip'}>
+        {errorText}
+      </div>
+    )
   }
 
   render() {

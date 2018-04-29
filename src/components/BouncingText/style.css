@@ -1,0 +1,16 @@
+@keyframes bounce {
+  0% {
+    transform: translateY(0, 0, 0); }
+  50% {
+    transform: translate3d(0, -1rem, 0); }
+  100% {
+    transform: translate3d(0, 0, 0); } }
+
+.BouncingText mark {
+  display: inline-block;
+  animation-name: bounce;
+  animation-duration: 900ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out; }
+  .BouncingText mark:not(:first-child) {
+    margin-right: .1rem; }

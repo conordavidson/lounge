@@ -30,6 +30,7 @@
     align-items: center;
 
     form {
+      @include type-deco;
       margin-bottom: 1rem;
     }
   }
@@ -48,6 +49,7 @@
 }
 
 .GenreDropdown {
+  @include type-deco;
   pointer-events: none;
   cursor: pointer;
   display: inline-flex;

@@ -1,20 +1,28 @@
 .fade {
-  transition: opacity 250ms ease-in-out;
-
   &-enter {
     opacity: 0.01;
 
     &-active {
+      transition: opacity 250ms ease-in-out;
       opacity: 1;
     }
   }
-  
+
   &-leave {
     opacity: 1;
 
     &-active {
+      transition: opacity 250ms ease-in-out;
       opacity: 0.01;
+    }
+  }
 
+  &-appear {
+    opacity: 0.01;
+
+    &-active {
+      transition: opacity 1s ease-in;
+      opacity: 1;
     }
   }
 }

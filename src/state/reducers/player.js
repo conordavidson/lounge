@@ -16,8 +16,8 @@ import {
 } from '../actions'
 
 export const initialState = {
-  _STATUS_INITIALIZED: false,
-  _STATUS_LOADING: false,
+  initialized: false,
+  loading: false,
   queue: [],
   movies: {},
   currentMovieId: null,
@@ -115,23 +115,23 @@ export default (state = initialState, action) => {
           }
         },
         queue: state.queue.concat([action.payload.id]),
-        _STATUS_INITIALIZED: true,
-        _STATUS_LOADING: false
+        initialized: true,
+        loading: false
       }
     case `${FETCH_QUERY_META}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true
+        loading: true
       }
     case `${FETCH_MOVIES}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true
+        loading: true
       }
     case `${FETCH_MOVIE_DETAILS}_PENDING`:
       return {
         ...state,
-        _STATUS_LOADING: true
+        loading: true
       }
     default:
       return state

@@ -1,4 +1,12 @@
 .ControlsComponent {
+  font-family: 'Arial';
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: -0.11rem 0.11rem 0 #C89D00;
+  -webkit-text-stroke-color: #C89D00;
+  color: #C89D00;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke-width: .5px;
   position: absolute;
   bottom: 1rem;
   left: 0;
