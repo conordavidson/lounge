@@ -2,12 +2,7 @@
 
 .ControlsComponent {
   @include type-deco;
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  right: 0;
   text-align: center;
-  z-index: 100;
 
   a {
     cursor: pointer;

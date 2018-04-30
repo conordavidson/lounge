@@ -6,6 +6,7 @@ import reducers from 'state/reducers'
 import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 
+import List from 'containers/ListContainer'
 import Player from 'containers/PlayerContainer'
 import Query from 'containers/QueryContainer'
 import Controls from 'containers/ControlsContainer'
@@ -28,9 +29,18 @@ export default () => (
   <Provider store={store}>
     <main>
       <Player />
-      <Query />
-      <Controls />
-      <Info />
+      <div className={`Top`}>
+        <div className={`Top__left`}>
+          <List />
+        </div>
+        <div className={`Top__right`}>
+          <Info />
+          <Query />
+        </div>
+      </div>
+      <div className={`Bottom`}>
+        <Controls />
+      </div>
     </main>
   </Provider>
 )

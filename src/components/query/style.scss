@@ -1,12 +1,9 @@
 @import "settings", "components";
 
 .QueryComponent {
-  position: absolute;
+  pointer-events: all;
   display: flex;
   flex-flow: row nowrap;
-  top: 1rem;
-  right: 1rem;
-  z-index: 100;
 
   input {
     @include type-deco;
@@ -55,6 +52,7 @@
   display: inline-flex;
   flex-flow: column nowrap;
   margin-right: 3rem;
+  text-transform: uppercase;
 
   &__list {
     opacity: 0;

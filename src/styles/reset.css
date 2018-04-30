@@ -43,3 +43,6 @@ table {
 mark {
 	background-color: transparent;
 }
+* {
+	box-sizing: border-box;
+}

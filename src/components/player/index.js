@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { CSSTransitionGroup } from 'react-transition-group'
-import { debounce } from 'throttle-debounce'
+import { throttle } from 'throttle-debounce'
 import YouTube from 'react-youtube'
 import BouncingText from 'components/BouncingText'
 import { hideCursor, showCursor } from 'utils/toggleCursorVisibility'
@@ -30,7 +30,7 @@ class Player extends Component {
   loadingView() {
     return (
       <div key={'loadingView'} className={`PlayerComponent__text`}>
-        <BouncingText text="LOADING" />
+        <BouncingText className={`Loading`} text="LOADING" />
       </div>
     )
   }
@@ -40,11 +40,11 @@ class Player extends Component {
       <div key={'homeView'} className={`PlayerComponent__text`}>
         <div className={`HomeView`}>
           <span role="img" aria-label="martini">🍸</span>
-          <br />
+          <br /><br />
           <h6>WELCOME TO THE</h6>
           <br />
           <br />
-          <BouncingText text="THE EMERALD LOUNGE" />
+          <BouncingText className={`HomeView__title`} text="MIDNIGHT THEATER" />
           <br />
           <p>
             SELECT A GENRE AND/OR TIME RANGE TO BEGIN YOUR VIEWING EXPERIENCE
@@ -89,15 +89,16 @@ class Player extends Component {
     )
   }
 
-  setYoutubePlayerInstance = (event) => {
+  setYoutubePlayerInstance = event => {
     this.setState({
       youtubePlayer: event.target
     })
   }
 
-  togglePausePlayVideo = (e) => {
+  togglePausePlayVideo = e => {
     if (e.code !== 'Space') return
     const { youtubePlayer } = this.state
+    if (!youtubePlayer) return
     const state = youtubePlayer.getPlayerState();
     if (state === 1) {
       youtubePlayer.pauseVideo()
@@ -128,8 +129,7 @@ class Player extends Component {
     return (
       <div
         className={`PlayerComponent`}
-        tabIndex="0"
-        onMouseMove={debounce(50, startControlDisplayTimeout)}
+        onMouseMove={throttle(250, startControlDisplayTimeout)}
       >
         <CSSTransitionGroup
           transitionName="fade"

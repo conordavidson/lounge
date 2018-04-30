@@ -15,7 +15,7 @@ export default ({ text, className }) => {
           animationDelay: delay
         }
         if (letter === ' ') {
-          styles.width = '1rem'
+          styles.width = '.75rem'
           amountOfSpaces += 1
         }
 

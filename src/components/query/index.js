@@ -23,7 +23,7 @@ class Query extends Component {
     return (
       <div className={`GenreDropdown`}>
         <div className={`GenreDropdown__selected-genre`}>
-          {genre ? Language.genres[genre] : 'All'}
+          {genre ? Language.genres[genre] : 'All Genres'}
         </div>
         <ul className={`GenreDropdown__list`}>
           {Object.keys(Genres)

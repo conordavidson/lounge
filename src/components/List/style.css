@@ -1,0 +1,79 @@
+.List {
+  display: flex;
+  pointer-events: none; }
+  .List:hover .List__list {
+    pointer-events: all;
+    opacity: 1; }
+  .List__add-icon {
+    font-family: 'Arial';
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: -0.11rem 0.11rem 0 #C89D00;
+    -webkit-text-stroke-color: #C89D00;
+    color: #C89D00;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    cursor: pointer;
+    transition: opacity .25s ease-in-out;
+    pointer-events: all; }
+    .List__add-icon:hover {
+      opacity: .7; }
+  .List__list {
+    opacity: 0;
+    pointer-events: none;
+    padding: 0 2rem 0 1rem; }
+    .List__list li {
+      border-bottom: 1px solid #C89D00;
+      padding: 0.5rem 0; }
+      .List__list li:first-child {
+        border-top: 1px solid #C89D00; }
+
+.ListItem {
+  cursor: pointer;
+  pointer-events: none; }
+  .ListItem:hover {
+    pointer-events: all; }
+    .ListItem:hover .ListItem__info {
+      display: block;
+      opacity: 1;
+      pointer-events: all; }
+    .ListItem:hover .ListItem__title::after {
+      transform: rotate(180deg); }
+  .ListItem__title {
+    font-family: 'Arial';
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: -0.11rem 0.11rem 0 #C89D00;
+    -webkit-text-stroke-color: #C89D00;
+    color: #C89D00;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: all; }
+    .ListItem__title::after {
+      content: '';
+      transition: transform .2s ease-in-out;
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: .3275rem solid transparent;
+      border-right: .3275rem solid transparent;
+      border-bottom: 0.3275rem solid #C89D00;
+      border-top: none; }
+  .ListItem__info {
+    font-family: 'Arial';
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: -0.11rem 0.11rem 0 #C89D00;
+    -webkit-text-stroke-color: #C89D00;
+    color: #C89D00;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-in-out;
+    margin: 1rem 0 0.5rem;
+    font-size: 1rem; }

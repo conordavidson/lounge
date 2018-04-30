@@ -1,10 +1,7 @@
 .QueryComponent {
-  position: absolute;
+  pointer-events: all;
   display: flex;
-  flex-flow: row nowrap;
-  top: 1rem;
-  right: 1rem;
-  z-index: 100; }
+  flex-flow: row nowrap; }
   .QueryComponent input {
     font-family: 'Arial';
     font-size: 1.5rem;
@@ -77,7 +74,8 @@
   cursor: pointer;
   display: inline-flex;
   flex-flow: column nowrap;
-  margin-right: 3rem; }
+  margin-right: 3rem;
+  text-transform: uppercase; }
   .GenreDropdown__list {
     opacity: 0;
     transition: opacity .25s ease-in-out; }

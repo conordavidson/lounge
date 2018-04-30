@@ -7,10 +7,36 @@ html, body, main, #root {
 }
 
 main {
+
 }
 
 body {
   &.--cursor-hidden {
     cursor: none;
   }
+}
+
+.Top {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  pointer-events: none;
+
+  &__right {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.Bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
 }

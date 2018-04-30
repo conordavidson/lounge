@@ -7,12 +7,7 @@
   color: #C89D00;
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
-  position: absolute;
-  bottom: 1rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 100; }
+  text-align: center; }
   .ControlsComponent a {
     cursor: pointer;
     transition: opacity .25s ease-in-out; }

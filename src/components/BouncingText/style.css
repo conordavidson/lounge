@@ -13,4 +13,4 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out; }
   .BouncingText mark:not(:first-child) {
-    margin-right: .1rem; }
+    margin-right: .0625rem; }

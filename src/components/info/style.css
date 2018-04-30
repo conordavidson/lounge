@@ -7,10 +7,7 @@
   color: #C89D00;
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 100; }
+  pointer-events: all; }
   .InfoComponent p {
     opacity: 0;
     font-size: 0;

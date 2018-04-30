@@ -1,33 +1,42 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { CSSTransitionGroup } from 'react-transition-group'
 import currentPlayerView from 'state/selectors/currentPlayerView'
+import { cancelControlDisplayTimeout } from 'state/actions'
 import { TRAILER, HOME } from 'constants/PlayerViews'
 
-const HideMe = ({ children, controlsDisplayed, currentPlayerView, displayedOnHome }) => {
-
+const HideMe = ({
+  children,
+  controlsDisplayed,
+  currentPlayerView,
+  displayedOnHome,
+  actions
+}) => {
   const displayed = (() => {
     if (displayedOnHome) {
       if (currentPlayerView === HOME) {
         return true
       } else {
-        return controlsDisplayed;
+        return controlsDisplayed
       }
     } else {
-      if (currentPlayerView === TRAILER) return controlsDisplayed;
+      if (currentPlayerView === TRAILER) return controlsDisplayed
     }
   })()
 
   return (
-    <CSSTransitionGroup
-      transitionName="fade"
-      transitionEnterTimeout={1000}
-      transitionLeaveTimeout={1000}
-      transitionAppear={true}
-      transitionAppearTimeout={1000}
-    >
-      {displayed ? children : null}
-    </CSSTransitionGroup>
+    <div onMouseEnter={actions.cancelControlDisplayTimeout}>
+      <CSSTransitionGroup
+        transitionName="fade"
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={1000}
+        transitionAppear={true}
+        transitionAppearTimeout={1000}
+      >
+        {displayed ? children : null}
+      </CSSTransitionGroup>
+    </div>
   )
 }
 
@@ -38,4 +47,15 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(HideMe)
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(
+      {
+        cancelControlDisplayTimeout
+      },
+      dispatch
+    )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HideMe)
