@@ -31,7 +31,8 @@
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px; }
 
-.Loading {
+.Loading,
+.Intermission {
   font-family: 'Arial';
   font-size: 1.5rem;
   font-weight: 700;
