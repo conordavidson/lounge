@@ -22,7 +22,7 @@ class Player extends Component {
   intermissionView() {
     return (
       <div key={'intermissionView'} className={`PlayerComponent__text`}>
-        <BouncingText text="INTERMISSION" />
+        <BouncingText className={`Intermission`} text="INTERMISSION" />
       </div>
     )
   }

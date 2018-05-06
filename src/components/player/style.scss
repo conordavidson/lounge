@@ -1,4 +1,4 @@
-@import "settings";
+@import 'settings';
 
 .PlayerComponent {
   position: absolute;
@@ -36,6 +36,7 @@
   }
 }
 
-.Loading {
+.Loading,
+.Intermission {
   @include type-deco;
 }

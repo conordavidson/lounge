@@ -18,7 +18,7 @@ class Query extends Component {
   }
 
   genreDropdown() {
-    const { genre, actions: { setGenreAndQuery } } = this.props
+    const { genre, years, actions: { setQuery } } = this.props
 
     return (
       <div className={`GenreDropdown`}>
@@ -33,7 +33,7 @@ class Query extends Component {
                 <li
                   className={`GenreDropdown__item`}
                   key={key}
-                  onClick={() => setGenreAndQuery(key)}
+                  onClick={() => setQuery({ years, genre: key })}
                 >
                   {Language.genres[key]}
                 </li>
@@ -46,9 +46,15 @@ class Query extends Component {
 
   setYearsAndQuery(e) {
     e.preventDefault()
-    const { actions: { setYearsAndQuery } } = this.props
+    const { genre, actions: { setQuery } } = this.props
     const { minYear, maxYear } = this.state
-    return setYearsAndQuery({ min: minYear, max: maxYear })
+    return setQuery({
+      genre,
+      years: {
+        min: minYear,
+        max: maxYear
+      }
+    })
   }
 
   validateYears() {
