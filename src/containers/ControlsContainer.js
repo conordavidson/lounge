@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { nextMovie, previousMovie } from 'state/actions'
+import { nextMovie, queueBackward } from 'state/actions'
 import { bindActionCreators } from 'redux'
 import Controls from 'components/Controls'
 
@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         nextMovie,
-        previousMovie
+        queueBackward
       },
       dispatch
     )
