@@ -4,13 +4,17 @@ import './style.css'
 
 class Controls extends Component {
   render() {
-    const { atFirstMovie, actions: { queueBackward, nextMovie } } = this.props
+    const {
+      atFirstMovie, paused,
+      actions: { queueBackward, nextMovie, togglePlayPause }
+    } = this.props
 
     return (
       <HideMe>
         <div className={`ControlsComponent`}>
-          {!atFirstMovie ? <a onClick={queueBackward}>PREV</a> : null}
-          <a onClick={nextMovie}>NEXT</a>
+          {!atFirstMovie ? <a onClick={queueBackward}>&#9666;&#9666;</a> : null}
+          <a onClick={togglePlayPause}>{paused ? '\u2759\u2759' : '\u25BA' }</a>
+          <a onClick={nextMovie}>&#9656;&#9656;</a>
         </div>
       </HideMe>
     )

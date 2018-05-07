@@ -22,9 +22,9 @@ body {
   justify-content: space-between;
   z-index: 100;
   top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
+  left: 4rem;
+  right: 4rem;
+  padding-top: 1.25rem;
   pointer-events: none;
 
   &__left {
@@ -48,8 +48,8 @@ body {
 
 .Bottom {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  bottom: 1.25rem;
+  left: 0;
+  right: 0;
   justify-content: center;
-  padding: 1rem;
 }

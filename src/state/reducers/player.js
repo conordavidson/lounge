@@ -6,7 +6,10 @@ import {
   QUEUE_BACKWARD,
   START_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT,
   END_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT,
-  FETCH_TRAILER_PENDING
+  FETCH_TRAILER_PENDING,
+  SET_YOUTUBE_PLAYER_INSTANCE,
+  PLAY_YOUTUBE_PLAYER,
+  PAUSE_YOUTUBE_PLAYER
 } from '../actions'
 
 export const initialState = {
@@ -16,12 +19,14 @@ export const initialState = {
   movies: {},
   currentMovieId: null,
   totalPages: null,
-  genre: null,
+  genre: 'ALL',
   years: {
     min: null,
     max: null
   },
-  trailerFetchDifficulty: false
+  trailerFetchDifficulty: false,
+  paused: false,
+  youtubePlayerInstance: null
 }
 
 export default (state = initialState, action) => {
@@ -85,6 +90,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      }
+    case SET_YOUTUBE_PLAYER_INSTANCE:
+      return {
+        ...state,
+        youtubePlayerInstance: action.payload
+      }
+    case PLAY_YOUTUBE_PLAYER:
+      return {
+        ...state,
+        paused: false
+      }
+    case PAUSE_YOUTUBE_PLAYER:
+      return {
+        ...state,
+        paused: true
       }
     default:
       return state

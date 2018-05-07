@@ -1,4 +1,5 @@
 export default {
+  ALL: null,
   ACTION: 28,
   ADVENTURE: 12,
   ANIMATION: 16,

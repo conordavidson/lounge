@@ -8,6 +8,7 @@ export default {
     invalidMinYear: '🕒 Your minimum year is not a valid year.'
   },
   genres: {
+    ALL: 'All Genres',
     ACTION: 'Action',
     ADVENTURE: 'Adventure',
     ANIMATION: 'Animation',

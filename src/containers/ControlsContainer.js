@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { nextMovie, queueBackward } from 'state/actions'
+import { nextMovie, queueBackward, togglePlayPause } from 'state/actions'
 import { bindActionCreators } from 'redux'
 import Controls from 'components/Controls'
 import atFirstMovie from 'state/selectors/atFirstMovie'
@@ -16,7 +16,8 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         nextMovie,
-        queueBackward
+        queueBackward,
+        togglePlayPause
       },
       dispatch
     )

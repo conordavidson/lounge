@@ -4,7 +4,12 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 0; }
+  z-index: 0;
+  background-color: #F7F9FF;
+  margin: 4rem;
+  transition: margin .375s ease-in-out; }
+  .PlayerComponent--controls-hidden {
+    margin: 0; }
   .PlayerComponent__text {
     display: flex;
     align-items: center;

@@ -3,7 +3,12 @@ import { bindActionCreators } from 'redux'
 import Player from 'components/Player'
 import currentMovie from 'state/selectors/currentMovie'
 import currentPlayerView from 'state/selectors/currentPlayerView'
-import { nextMovie, startControlDisplayTimeout } from 'state/actions'
+import {
+  nextMovie,
+  startControlDisplayTimeout,
+  setYoutubePlayerInstance,
+  togglePlayPause
+} from 'state/actions'
 
 const mapStateToProps = state => {
   return {
@@ -18,7 +23,9 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         nextMovie,
-        startControlDisplayTimeout
+        startControlDisplayTimeout,
+        setYoutubePlayerInstance,
+        togglePlayPause
       },
       dispatch
     )

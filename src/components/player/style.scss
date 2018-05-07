@@ -7,6 +7,13 @@
   bottom: 0;
   left: 0;
   z-index: 0;
+  background-color: $color-secondary;
+  margin: 4rem;
+  transition: margin .375s ease-in-out;
+
+  &--controls-hidden {
+    margin: 0;
+  }
 
   &__text {
     display: flex;

@@ -13,5 +13,5 @@
     transition: opacity .25s ease-in-out; }
     .ControlsComponent a:hover {
       opacity: .7; }
-    .ControlsComponent a:first-child {
+    .ControlsComponent a:not(:last-child) {
       margin-right: 1rem; }

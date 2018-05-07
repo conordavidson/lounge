@@ -12,7 +12,7 @@
       opacity: .7
     }
 
-    &:first-child {
+    &:not(:last-child) {
       margin-right: 1rem;
     }
   }

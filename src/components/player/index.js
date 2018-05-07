@@ -2,19 +2,13 @@ import React, { Component } from 'react'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { throttle } from 'throttle-debounce'
 import YouTube from 'react-youtube'
+import cx from 'classnames'
 import BouncingText from 'components/BouncingText'
 import { hideCursor, showCursor } from 'utils/toggleCursorVisibility'
 import { INTERMISSION, LOADING, TRAILER, HOME } from 'constants/PlayerViews'
 import './style.css'
 
 class Player extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      youtubePlayer: null
-    }
-  }
-
   componentDidMount() {
     document.addEventListener("keypress", this.togglePausePlayVideo);
   }
@@ -58,7 +52,7 @@ class Player extends Component {
     const {
       controlsDisplayed,
       currentMovie,
-      actions: { nextMovie }
+      actions: { nextMovie, setYoutubePlayerInstance }
     } = this.props
 
     controlsDisplayed ? showCursor() : hideCursor()
@@ -71,7 +65,7 @@ class Player extends Component {
         <YouTube
           videoId={currentMovie.trailer.key}
           onEnd={nextMovie}
-          onReady={this.setYoutubePlayerInstance}
+          onReady={e => setYoutubePlayerInstance(e.target)}
           opts={{
             width: '100%',
             height: '100%',
@@ -89,22 +83,10 @@ class Player extends Component {
     )
   }
 
-  setYoutubePlayerInstance = event => {
-    this.setState({
-      youtubePlayer: event.target
-    })
-  }
-
   togglePausePlayVideo = e => {
+    const { actions: togglePlayPause } = this.props
     if (e.code !== 'Space') return
-    const { youtubePlayer } = this.state
-    if (!youtubePlayer) return
-    const state = youtubePlayer.getPlayerState();
-    if (state === 1) {
-      youtubePlayer.pauseVideo()
-    } else {
-      youtubePlayer.playVideo()
-    }
+    togglePlayPause()
   }
 
   viewSwitch() {
@@ -124,11 +106,19 @@ class Player extends Component {
   }
 
   render() {
-    const { actions: { startControlDisplayTimeout } } = this.props
+    const {
+      controlsDisplayed,
+      currentPlayerView,
+      actions: { startControlDisplayTimeout }
+    } = this.props
+
+    const classes = cx('PlayerComponent', {
+      'PlayerComponent--controls-hidden': !controlsDisplayed  && currentPlayerView === TRAILER
+    })
 
     return (
       <div
-        className={`PlayerComponent`}
+        className={classes}
         onMouseMove={throttle(250, startControlDisplayTimeout)}
       >
         <CSSTransitionGroup
