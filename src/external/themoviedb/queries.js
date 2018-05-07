@@ -1,8 +1,7 @@
-import THEMOVIEDB_KEY from 'external/themoviedb/key'
 import Genres from 'external/themoviedb/genres'
 
 export const urlBaseSegment = `https://api.themoviedb.org/3/`
-export const urlKeyParam = `api_key=${THEMOVIEDB_KEY}`
+export const urlKeyParam = `api_key=${process.env.REACT_APP_THEMOVIEDB_KEY}`
 
 export const TMDB_fetchMovies = query => {
   const urlYearBeginParam = query.years.min

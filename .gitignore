@@ -16,6 +16,7 @@
 .env.test.local
 .env.production.local
 
+.env
 /src/external/themoviedb/key.js
 /src/*.css
 

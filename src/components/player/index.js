@@ -11,6 +11,9 @@ import './style.css'
 class Player extends Component {
   componentDidMount() {
     document.addEventListener("keypress", this.togglePausePlayVideo);
+    // setTimeout(() => {
+    //   window.mixpanel.track("TEST");
+    // }, 2000)
   }
 
   intermissionView() {
