@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment';
 import HideMe from 'components/HideMe'
 import { TRAILER } from 'constants/PlayerViews'
 import './style.css'
@@ -30,7 +31,7 @@ class Info extends Component {
           <p className={`InfoComponent__title`}>{currentMovie.title}</p>
           <p className={`InfoComponent__directors`}>{this.directorNames()}</p>
           <p className={`InfoComponent__release_date`}>
-            {currentMovie.release_date}
+            Released: {moment(currentMovie.release_date).format('MMMM Do YYYY')}
           </p>
         </div>
       </HideMe>

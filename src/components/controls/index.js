@@ -4,12 +4,12 @@ import './style.css'
 
 class Controls extends Component {
   render() {
-    const { actions: { queueBackward, nextMovie } } = this.props
+    const { atFirstMovie, actions: { queueBackward, nextMovie } } = this.props
 
     return (
       <HideMe>
         <div className={`ControlsComponent`}>
-          <a onClick={queueBackward}>PREV</a>
+          {!atFirstMovie ? <a onClick={queueBackward}>PREV</a> : null}
           <a onClick={nextMovie}>NEXT</a>
         </div>
       </HideMe>

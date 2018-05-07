@@ -1,9 +1,10 @@
 .QueryComponent {
   pointer-events: all;
   display: flex;
-  flex-flow: row nowrap; }
+  flex-flow: row nowrap;
+  justify-content: space-between; }
   .QueryComponent input {
-    font-family: 'Arial';
+    font-family: Arial;
     font-size: 1.5rem;
     font-weight: 700;
     text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -26,7 +27,7 @@
     flex-direction: column;
     align-items: center; }
     .QueryComponent__years form {
-      font-family: 'Arial';
+      font-family: Arial;
       font-size: 1.5rem;
       font-weight: 700;
       text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -62,7 +63,7 @@
       margin-top: .5rem; }
 
 .GenreDropdown {
-  font-family: 'Arial';
+  font-family: Arial;
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: -0.11rem 0.11rem 0 #C89D00;

@@ -4,8 +4,10 @@
   .List:hover .List__list {
     pointer-events: all;
     opacity: 1; }
+  .List:hover .ListItem__title {
+    pointer-events: all; }
   .List__add-icon {
-    font-family: 'Arial';
+    font-family: Arial;
     font-size: 1.5rem;
     font-weight: 700;
     text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -33,14 +35,14 @@
   pointer-events: none; }
   .ListItem:hover {
     pointer-events: all; }
-    .ListItem:hover .ListItem__info {
-      display: block;
+    .ListItem:hover .ListItem__bottom {
+      display: flex;
       opacity: 1;
       pointer-events: all; }
     .ListItem:hover .ListItem__title::after {
       transform: rotate(180deg); }
   .ListItem__title {
-    font-family: 'Arial';
+    font-family: Arial;
     font-size: 1.5rem;
     font-weight: 700;
     text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -50,8 +52,7 @@
     -webkit-text-stroke-width: .5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    pointer-events: all; }
+    align-items: center; }
     .ListItem__title::after {
       content: '';
       transition: transform .2s ease-in-out;
@@ -61,9 +62,10 @@
       border-left: .3275rem solid transparent;
       border-right: .3275rem solid transparent;
       border-bottom: 0.3275rem solid #C89D00;
-      border-top: none; }
-  .ListItem__info {
-    font-family: 'Arial';
+      border-top: none;
+      margin-left: .5rem; }
+  .ListItem__bottom {
+    font-family: Arial;
     font-size: 1.5rem;
     font-weight: 700;
     text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -71,9 +73,21 @@
     color: #C89D00;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
-    display: none;
     opacity: 0;
+    display: none;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
     pointer-events: none;
     transition: opacity 0.25s ease-in-out;
     margin: 1rem 0 0.5rem;
-    font-size: 1rem; }
+    font-size: 1rem;
+    line-height: 1.25rem; }
+  .ListItem__info {
+    margin-right: 2rem; }
+  .ListItem__links {
+    font-size: 1.375rem;
+    cursor: pointer;
+    transition: transform .25s ease-in-out; }
+    .ListItem__links:hover {
+      transform: translate3d(0.25rem, -0.25rem, 0); }

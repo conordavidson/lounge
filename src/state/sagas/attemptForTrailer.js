@@ -22,7 +22,7 @@ export default function* attemptForTrailer() {
   for padding.
   */
 
-  while(!foundTrailer && attempts < 18) {
+  while(!foundTrailer && attempts < 19) {
     const moviesFetch = yield call(TMDB_fetchMovies, {
       genre,
       years,

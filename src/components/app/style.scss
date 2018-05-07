@@ -27,9 +27,22 @@ body {
   padding: 1rem;
   pointer-events: none;
 
+  &__left {
+    flex: 1;
+  }
+
   &__right {
     display: flex;
     justify-content: space-between;
+    flex: 2;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__query {
+    flex: 2;
   }
 }
 

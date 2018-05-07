@@ -1,40 +1,55 @@
 @import "settings";
 
 .InfoComponent {
-  @include type-deco;
-  pointer-events: all;
+  pointer-events: none;
+  padding-right: 1rem;
+  line-height: 1.5rem;
 
   p {
+    @include type-deco;
     opacity: 0;
     font-size: 0;
     transition: opacity .25s ease-in-out;
+    pointer-events: none;
   }
 
   &:hover p {
     opacity: 100;
-    font-size: inherit;
+    pointer-events: all;
 
     &.InfoComponent__title {
       font-size: 2rem;
+      line-height: 1.875rem;
+      padding: .5rem 0;
+    }
+
+    &.InfoComponent__directors,
+    &.InfoComponent__release_date {
+      font-size: 1.25rem;
     }
   }
 
   .InfoComponent__icon {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 1.5rem;
     height: 1.5rem;
-    line-height: 1.5rem;
     border: .125rem solid $color-primary;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0);
-    text-align: center;
     cursor: pointer;
+    pointer-events: all;
 
     &::before {
       content: 'i';
       display: block;
       position: relative;
-      font-size: .75em;
+      font-size: 1rem;
+      font-family: 'Times';
+      right: .02rem;
+      font-weight: 700;
+      color: $color-primary;
     }
   }
 }

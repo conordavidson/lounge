@@ -15,7 +15,6 @@ export const initialState = {
   queue: [],
   movies: {},
   currentMovieId: null,
-  pageNumber: null,
   totalPages: null,
   genre: null,
   years: {

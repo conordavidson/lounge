@@ -22,7 +22,7 @@
   text-align: center;
   max-width: 22rem; }
   .HomeView__title {
-    font-family: 'Arial';
+    font-family: Arial;
     font-size: 1.5rem;
     font-weight: 700;
     text-shadow: -0.11rem 0.11rem 0 #C89D00;
@@ -33,7 +33,7 @@
 
 .Loading,
 .Intermission {
-  font-family: 'Arial';
+  font-family: Arial;
   font-size: 1.5rem;
   font-weight: 700;
   text-shadow: -0.11rem 0.11rem 0 #C89D00;

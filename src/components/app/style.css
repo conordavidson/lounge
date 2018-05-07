@@ -16,9 +16,16 @@ body.--cursor-hidden {
   width: 100%;
   padding: 1rem;
   pointer-events: none; }
+  .Top__left {
+    flex: 1; }
   .Top__right {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    flex: 2; }
+  .Top__info {
+    flex: 1; }
+  .Top__query {
+    flex: 2; }
 
 .Bottom {
   position: absolute;

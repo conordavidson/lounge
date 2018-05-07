@@ -12,7 +12,7 @@ $font-7: 5rem;
 }
 
 @mixin type-deco {
-  font-family: 'Arial';
+  font-family: Arial;
   font-size: $font-4;
   font-weight: 700;
   text-shadow: -0.11rem 0.11rem 0 $color-primary;

@@ -5,7 +5,6 @@ import reducers from 'state/reducers'
 import root from 'state/sagas'
 
 import createSagaMiddleware from 'redux-saga'
-import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 
 import List from 'containers/ListContainer'
@@ -24,8 +23,7 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   compose(applyMiddleware(
     thunk,
-    sagaMiddleware,
-    promiseMiddleware(),
+    sagaMiddleware
   ))
 )
 sagaMiddleware.run(root)
@@ -39,8 +37,12 @@ export default () => (
           <List />
         </div>
         <div className={`Top__right`}>
-          <Info />
-          <Query />
+          <div className={`Top__info`}>
+            <Info />
+          </div>
+          <div className={`Top__query`}>
+            <Query />
+          </div>
         </div>
       </div>
       <div className={`Bottom`}>

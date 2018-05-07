@@ -4,6 +4,7 @@
   pointer-events: all;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between;
 
   input {
     @include type-deco;

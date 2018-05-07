@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import moment from 'moment'
+import youtubeLink from 'utils/youtubeLink'
 import HideMe from 'components/HideMe'
 import './style.css'
 
@@ -21,9 +23,21 @@ export default class extends Component {
 
     return Object.values(savedMovies).map(movie => (
       <li key={movie.id} className={`ListItem`}>
-        <div className={`ListItem__title`}>{movie.title}</div>
-        <div className={`ListItem__info`}>
-          {this.directorNames(movie)}
+        <p className={`ListItem__title`}>{movie.title}</p>
+        <div className={`ListItem__bottom`}>
+          <div className={`ListItem__info`}>
+            <p>{this.directorNames(movie)}</p>
+            <p>
+              Released: {moment(movie.release_date).format('MMMM Do YYYY')}
+            </p>
+          </div>
+          <a
+            className={`ListItem__links`}
+            href={youtubeLink(movie.trailer.key)}
+            target='_blank'
+          >
+            &#11016;
+          </a>
         </div>
       </li>
     ))

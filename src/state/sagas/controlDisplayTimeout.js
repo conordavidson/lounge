@@ -12,5 +12,5 @@ export default function* controlDisplayTimeout() {
     cancel: take(CANCEL_CONTROL_DISPLAY_TIMEOUT),
     debounce: take(START_CONTROL_DISPLAY_TIMEOUT)
   })
-  if (timeout) yield put({ type: END_CONTROL_DISPLAY_TIMEOUT })
+  // if (timeout) yield put({ type: END_CONTROL_DISPLAY_TIMEOUT })
 }
