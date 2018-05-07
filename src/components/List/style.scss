@@ -33,7 +33,6 @@
 
     li {
       border-bottom: 1px solid $color-primary;
-      padding: 0.5rem 0;
 
       &:first-child {
         border-top: 1px solid $color-primary;
@@ -60,11 +59,18 @@
     }
   }
 
+  &:not(:hover) {
+    .ListItem__title {
+      padding-bottom: .5rem;
+    }
+  }
+
   &__title {
     @include type-deco;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: .5rem;
 
     &::after {
       content: '';
@@ -89,7 +95,7 @@
     align-items: flex-end;
     pointer-events: none;
     transition: opacity 0.25s ease-in-out;
-    margin: 1rem 0 0.5rem;
+    padding: 1rem 0;
     font-size: 1rem;
     line-height: 1.25rem;
   }
