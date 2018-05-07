@@ -5,3 +5,11 @@ export const saveMovie = payload => {
     payload
   }
 }
+
+export const DELETE_MOVIE = 'DELETE_MOVIE'
+export const deleteMovie = payload => {
+  return {
+    type: DELETE_MOVIE,
+    payload
+  }
+}

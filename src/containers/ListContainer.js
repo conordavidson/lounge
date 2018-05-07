@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { saveMovie } from 'state/actions'
+import { saveMovie, deleteMovie } from 'state/actions'
 import { bindActionCreators } from 'redux'
 import currentMovie from 'state/selectors/currentMovie'
 import List from 'components/List'
@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => {
     actions: bindActionCreators(
       {
         saveMovie,
+        deleteMovie
       },
       dispatch
     )

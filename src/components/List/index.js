@@ -19,12 +19,26 @@ export default class extends Component {
   }
 
   list() {
-    const { savedMovies } = this.props
+    const { savedMovies, actions: { deleteMovie } } = this.props
 
-    return Object.values(savedMovies).map(movie => (
+    return Object.values(savedMovies)
+      .filter(movie => movie !== undefined)
+      .map(movie => (
       <li key={movie.id} className={`ListItem`}>
-        <p className={`ListItem__title`}>{movie.title}</p>
-        <div className={`ListItem__bottom`}>
+        <div className={`ListItem__header`}>
+          <div className={`ListItem__header-left`}>
+            <a
+              className={`ListItem__delete-icon`}
+              onClick={() => deleteMovie(movie.id)}
+            />
+            <p className={`ListItem__title`}>{movie.title}</p>
+          </div>
+          <div className={`ListItem__header-right`}>
+            <mark className={`ListItem__toggle-icon`}/>
+          </div>
+        </div>
+
+        <div className={`ListItem__body`}>
           <div className={`ListItem__info`}>
             <p>{this.directorNames(movie)}</p>
             <p>

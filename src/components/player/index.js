@@ -84,7 +84,7 @@ class Player extends Component {
   }
 
   togglePausePlayVideo = e => {
-    const { actions: togglePlayPause } = this.props
+    const { actions: { togglePlayPause } } = this.props
     if (e.code !== 'Space') return
     togglePlayPause()
   }

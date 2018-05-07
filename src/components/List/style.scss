@@ -48,20 +48,36 @@
   &:hover {
     pointer-events: all;
 
-    .ListItem__bottom {
+    .ListItem__body {
       display: flex;
       opacity: 1;
       pointer-events: all;
     }
 
-    .ListItem__title::after {
+    .ListItem__toggle-icon::after {
       transform: rotate(180deg);
+    }
+
+    .ListItem__delete-icon {
+      display: block;
     }
   }
 
   &:not(:hover) {
-    .ListItem__title {
+    .ListItem__header {
       padding-bottom: .5rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: .5rem;
+
+    &-left {
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -70,23 +86,57 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: .5rem;
+  }
+
+  &__toggle-icon::after {
+    content: '';
+    transition: transform .2s ease-in-out;
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: .3275rem solid transparent;
+    border-right: .3275rem solid transparent;
+    border-bottom: .3275rem solid $color-primary;
+    border-top: none;
+    margin-left: .5rem;
+  }
+
+  &__delete-icon {
+    display: none;
+    width: .75rem;
+    height: .75rem;
+    position: relative;
+    margin-right: .5rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    opacity: .5;
+    transition: opacity .25 ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      top: .375rem;
+      right: 0;
+      left: 0;
+      border-bottom: 1px solid $color-primary;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
 
     &::after {
-      content: '';
-      transition: transform .2s ease-in-out;
-      display: block;
-      width: 0;
-      height: 0;
-      border-left: .3275rem solid transparent;
-      border-right: .3275rem solid transparent;
-      border-bottom: .3275rem solid $color-primary;
-      border-top: none;
-      margin-left: .5rem;
+      transform: rotate(-45deg);
     }
   }
 
-  &__bottom {
+  &__body {
     @include type-deco;
     opacity: 0;
     display: none;
@@ -111,6 +161,10 @@
 
     &:hover {
       transform: translate3d(.25rem, -.25rem, 0);
+    }
+
+    &:visited {
+      @include type-deco;
     }
   }
 }

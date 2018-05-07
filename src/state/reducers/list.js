@@ -1,4 +1,4 @@
-import { SAVE_MOVIE } from 'state/actions'
+import { SAVE_MOVIE, DELETE_MOVIE } from 'state/actions'
 
 export const initialState = {
   savedMovies: {}
@@ -12,6 +12,14 @@ export default (state = initialState, action) => {
         savedMovies: {
           ...state.savedMovies,
           [action.payload.id]: action.payload
+        }
+      }
+    case DELETE_MOVIE:
+      return {
+        ...state,
+        savedMovies: {
+          ...state.savedMovies,
+          [action.payload]: undefined
         }
       }
     default:
