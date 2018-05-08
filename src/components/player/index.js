@@ -6,14 +6,12 @@ import cx from 'classnames'
 import BouncingText from 'components/BouncingText'
 import { hideCursor, showCursor } from 'utils/toggleCursorVisibility'
 import { INTERMISSION, LOADING, TRAILER, HOME } from 'constants/PlayerViews'
+import { SPACE_BAR, TRAILER_FINISHED } from 'external/mixpanel/properties'
 import './style.css'
 
 class Player extends Component {
   componentDidMount() {
     document.addEventListener("keypress", this.togglePausePlayVideo);
-    // setTimeout(() => {
-    //   window.mixpanel.track("TEST");
-    // }, 2000)
   }
 
   intermissionView() {
@@ -67,7 +65,7 @@ class Player extends Component {
       >
         <YouTube
           videoId={currentMovie.trailer.key}
-          onEnd={nextMovie}
+          onEnd={() => nextMovie(TRAILER_FINISHED)}
           onReady={e => setYoutubePlayerInstance(e.target)}
           opts={{
             width: '100%',
@@ -89,7 +87,7 @@ class Player extends Component {
   togglePausePlayVideo = e => {
     const { actions: { togglePlayPause } } = this.props
     if (e.code !== 'Space') return
-    togglePlayPause()
+    togglePlayPause(SPACE_BAR)
   }
 
   viewSwitch() {

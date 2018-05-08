@@ -11,6 +11,8 @@ import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import storage from 'redux-persist/lib/storage'
 
+import Track from 'external/mixpanel'
+
 import List from 'containers/ListContainer'
 import Player from 'containers/PlayerContainer'
 import Query from 'containers/QueryContainer'
@@ -39,6 +41,10 @@ const store = createStore(
 )
 const persistor = persistStore(store)
 sagaMiddleware.run(root)
+
+/* ANALYTICS */
+Track.ENTER_SITE()
+window.onunload = () => Track.LEAVE_SITE()
 
 export default () => (
   <Provider store={store}>

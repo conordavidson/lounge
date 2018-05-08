@@ -17,8 +17,11 @@ export const queueBackward = () => {
 }
 
 export const NEXT_MOVIE = 'NEXT_MOVIE'
-export const nextMovie = () => {
-  return { type: NEXT_MOVIE }
+export const nextMovie = payload => {
+  return {
+    type: NEXT_MOVIE,
+    payload
+  }
 }
 
 export const START_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT = 'START_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT'
@@ -28,8 +31,11 @@ export const END_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT = 'END_UNSUCCESSFUL_TRAILE
 export const PLAY_YOUTUBE_PLAYER = 'PLAY_YOUTUBE_PLAYER'
 export const PAUSE_YOUTUBE_PLAYER = 'PAUSE_YOUTUBE_PLAYER'
 export const TOGGLE_PLAY_PAUSE = 'TOGGLE_PLAY_PAUSE'
-export const togglePlayPause = () => {
-  return { type: TOGGLE_PLAY_PAUSE }
+export const togglePlayPause = payload => {
+  return {
+    type: TOGGLE_PLAY_PAUSE,
+    payload
+  }
 }
 
 export const SET_YOUTUBE_PLAYER_INSTANCE = 'SET_YOUTUBE_PLAYER_INSTANCE'
