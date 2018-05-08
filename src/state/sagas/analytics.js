@@ -50,7 +50,7 @@ function* trackAction(action) {
         }
       })
     case TOGGLE_PLAY_PAUSE:
-      return Track.TOGGLE_PLAY_PAUSE({ type: action.payload })
+      return Track.TOGGLE_PLAY_PAUSE({ key: action.payload })
     default: return
   }
 }
