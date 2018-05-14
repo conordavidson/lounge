@@ -6,6 +6,7 @@ import List from 'components/List'
 
 const mapStateToProps = state => {
   return {
+    ...state.ui,
     ...state.list,
     currentMovie: currentMovie(state)
   }

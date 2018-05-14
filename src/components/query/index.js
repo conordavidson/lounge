@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { debounce } from 'throttle-debounce'
+import cx from 'classnames'
 import Genres from '../../external/themoviedb/genres.js'
 import Language from 'constants/Language'
 import HideMe from 'components/HideMe'
@@ -13,33 +14,68 @@ class Query extends Component {
     this.state = {
       minYear: null,
       maxYear: null,
-      errors: []
+      errors: [],
+      genreDropdownExpanded: false
     }
+  }
+
+  toggleGenreDropdownExpandContract() {
+    const { genreDropdownExpanded } = this.state
+    this.setState({ genreDropdownExpanded: !genreDropdownExpanded })
+  }
+
+  handleGenreDropdownHover = () => {
+    const { isTouchScreen } = this.props
+    if (isTouchScreen) return
+    this.toggleGenreDropdownExpandContract()
+  }
+
+  handleGenreDropdownTouch = () => {
+    const { isTouchScreen } = this.props
+    if (!isTouchScreen) return
+    this.toggleGenreDropdownExpandContract()
   }
 
   genreDropdown() {
     const { genre, years, actions: { setQuery } } = this.props
+    const { genreDropdownExpanded } = this.state
+    const classes = cx('GenreDropdown', {
+      'GenreDropdown--expanded': genreDropdownExpanded
+    })
 
     return (
-      <div className={`GenreDropdown`}>
+      <div
+        className={classes}
+        onMouseEnter={this.handleGenreDropdownHover}
+        onMouseLeave={this.handleGenreDropdownHover}
+        onTouchStart={this.handleGenreDropdownTouch}
+      >
         <div className={`GenreDropdown__selected-genre`}>
           {Language.genres[genre]}
         </div>
-        <ul className={`GenreDropdown__list`}>
-          {Object.keys(Genres)
-            .filter(key => key !== genre)
-            .map(key => {
-              return (
-                <li
-                  className={`GenreDropdown__item`}
-                  key={key}
-                  onClick={() => setQuery({ years, genre: key })}
-                >
-                  {Language.genres[key]}
-                </li>
-              )
-            })}
-        </ul>
+        <CSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
+        >
+        {genreDropdownExpanded ? (
+          <ul className={`GenreDropdown__list`}>
+            {Object.keys(Genres)
+              .filter(key => key !== genre)
+              .map(key => {
+                return (
+                  <li
+                    className={`GenreDropdown__item`}
+                    key={key}
+                    onClick={() => setQuery({ years, genre: key })}
+                  >
+                    {Language.genres[key]}
+                  </li>
+                )
+              })}
+          </ul>
+        ) : null}
+        </CSSTransitionGroup>
       </div>
     )
   }
@@ -124,7 +160,6 @@ class Query extends Component {
     return (
       <HideMe displayedOnHome>
         <div className={`QueryComponent`}>
-          <div>{this.genreDropdown()}</div>
           <div className={`QueryComponent__years`}>
             {this.yearSelector()}
             <CSSTransitionGroup
@@ -135,6 +170,7 @@ class Query extends Component {
               {errors.length ? this.errorTooltip() : null}
             </CSSTransitionGroup>
           </div>
+          {this.genreDropdown()}
         </div>
       </HideMe>
     )

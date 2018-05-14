@@ -7,7 +7,8 @@ import {
   nextMovie,
   startControlDisplayTimeout,
   setYoutubePlayerInstance,
-  togglePlayPause
+  togglePlayPause,
+  detectTouchScreen
 } from 'state/actions'
 
 const mapStateToProps = state => {
@@ -25,7 +26,8 @@ const mapDispatchToProps = dispatch => {
         nextMovie,
         startControlDisplayTimeout,
         setYoutubePlayerInstance,
-        togglePlayPause
+        togglePlayPause,
+        detectTouchScreen
       },
       dispatch
     )

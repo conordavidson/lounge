@@ -11,6 +11,8 @@ import './style.css'
 
 class Player extends Component {
   componentDidMount() {
+    const { actions: { detectTouchScreen } } = this.props
+    detectTouchScreen('ontouchstart' in window || !!navigator.maxTouchPoints)
     document.addEventListener("keypress", this.togglePausePlayVideo);
   }
 
@@ -34,15 +36,10 @@ class Player extends Component {
     return (
       <div key={'homeView'} className={`PlayerComponent__text`}>
         <div className={`HomeView`}>
-          <span role="img" aria-label="martini">🍸</span>
-          <br /><br />
-          <h6>WELCOME TO THE</h6>
-          <br />
-          <br />
+          <h6>Welcome to the</h6>
           <BouncingText className={`HomeView__title`} text="MIDNIGHT THEATER" />
-          <br />
           <p>
-            SELECT A GENRE AND/OR TIME RANGE TO BEGIN YOUR VIEWING EXPERIENCE
+            Select a genre and/or time period to begin your viewing experience
           </p>
         </div>
       </div>

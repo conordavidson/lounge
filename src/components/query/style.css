@@ -1,17 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700");
 .QueryComponent {
+  flex-basis: 50%;
   pointer-events: all;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between; }
   .QueryComponent input {
-    font-family: Arial;
+    font-family: 'America Medium';
     font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 #C89D00;
-    -webkit-text-stroke-color: #C89D00;
-    color: #C89D00;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
+    line-height: 1.5rem;
     width: 4rem;
     text-align: center;
     border: none;
@@ -19,26 +21,26 @@
     background-color: transparent;
     outline: none;
     padding-bottom: .125rem;
-    border-bottom: 1px dotted #C89D00; }
+    border-bottom: 1px dotted black; }
   .QueryComponent button {
     display: none; }
   .QueryComponent__years {
     display: flex;
-    flex-direction: column;
-    align-items: center; }
+    flex-direction: column; }
     .QueryComponent__years form {
-      font-family: Arial;
+      font-family: 'America Medium';
       font-size: 1.5rem;
-      font-weight: 700;
-      text-shadow: -0.11rem 0.11rem 0 #C89D00;
-      -webkit-text-stroke-color: #C89D00;
-      color: #C89D00;
+      text-shadow: -0.11rem 0.11rem 0 black;
+      -webkit-text-stroke-color: black;
+      color: black;
       -webkit-text-fill-color: #fff;
       -webkit-text-stroke-width: .5px;
+      line-height: 1.5rem;
       margin-bottom: 1rem; }
   .QueryComponent__error-tooltip {
-    font-family: Arial;
-    font-size: 0.75rem;
+    font-family: 'America Regular';
+    font-size: 0.8125rem;
+    line-height: 1.2rem;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -63,25 +65,25 @@
       margin-top: .5rem; }
 
 .GenreDropdown {
-  font-family: Arial;
+  font-family: 'America Medium';
   font-size: 1.5rem;
-  font-weight: 700;
-  text-shadow: -0.11rem 0.11rem 0 #C89D00;
-  -webkit-text-stroke-color: #C89D00;
-  color: #C89D00;
+  text-shadow: -0.11rem 0.11rem 0 black;
+  -webkit-text-stroke-color: black;
+  color: black;
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
-  pointer-events: none;
+  line-height: 1.5rem;
+  flex-basis: 50%;
+  max-width: 17rem;
   cursor: pointer;
   display: inline-flex;
+  justify-content: space-between;
   flex-flow: column nowrap;
-  margin-right: 3rem;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  line-height: 1.75rem; }
   .GenreDropdown__list {
-    opacity: 0;
     transition: opacity .25s ease-in-out; }
   .GenreDropdown__selected-genre {
-    pointer-events: all;
     display: flex;
     justify-content: space-between;
     align-items: center; }
@@ -93,12 +95,9 @@
       height: 0;
       border-left: .3275rem solid transparent;
       border-right: .3275rem solid transparent;
-      border-bottom: 0.3275rem solid #C89D00;
+      border-bottom: 0.3275rem solid black;
       border-top: none; }
-  .GenreDropdown:hover .GenreDropdown__selected-genre:after {
+  .GenreDropdown--expanded .GenreDropdown__selected-genre:after {
     transform: rotate(180deg); }
-  .GenreDropdown:hover .GenreDropdown__list {
-    pointer-events: all;
-    opacity: 1; }
-    .GenreDropdown:hover .GenreDropdown__list .GenreDropdown__item:hover {
-      opacity: .7; }
+  .GenreDropdown .GenreDropdown__item:hover {
+    opacity: .7; }

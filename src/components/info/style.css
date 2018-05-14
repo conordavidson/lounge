@@ -1,46 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700");
 .InfoComponent {
-  pointer-events: none;
+  pointer-events: all;
   padding-right: 1rem;
   line-height: 1.5rem; }
-  .InfoComponent p {
-    font-family: Arial;
+  .InfoComponent__info {
+    font-family: 'America Medium';
     font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 #C89D00;
-    -webkit-text-stroke-color: #C89D00;
-    color: #C89D00;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
-    opacity: 0;
-    font-size: 0;
-    transition: opacity .25s ease-in-out;
-    pointer-events: none; }
-  .InfoComponent:hover p {
-    opacity: 100;
-    pointer-events: all; }
-    .InfoComponent:hover p.InfoComponent__title {
-      font-size: 2rem;
-      line-height: 1.875rem;
-      padding: .5rem 0; }
-    .InfoComponent:hover p.InfoComponent__directors, .InfoComponent:hover p.InfoComponent__release_date {
-      font-size: 1.25rem; }
-  .InfoComponent .InfoComponent__icon {
+    line-height: 1.5rem; }
+  .InfoComponent__title {
+    font-size: 2rem;
+    line-height: 1.875rem;
+    padding: .5rem 0; }
+  .InfoComponent__directors, .InfoComponent__release_date {
+    font-size: 1.25rem; }
+  .InfoComponent__icon {
+    font-family: 'America Medium';
+    font-size: 1.5rem;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    line-height: 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 1.5rem;
     height: 1.5rem;
-    border: 0.125rem solid #C89D00;
-    border-radius: 50%;
     background-color: transparent;
-    cursor: pointer;
-    pointer-events: all; }
-    .InfoComponent .InfoComponent__icon::before {
-      content: 'i';
+    cursor: pointer; }
+    .InfoComponent__icon::before {
+      content: ')';
       display: block;
       position: relative;
       font-size: 1rem;
-      font-family: 'Times';
-      right: .02rem;
-      font-weight: 700;
-      color: #C89D00; }
+      right: .02rem; }

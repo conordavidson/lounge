@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "America Regular";
+  src: url("/fonts/GT-America-Regular-v2.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "America Medium";
+  src: url("/fonts/GT-America-Extended-Medium-v2.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: "America Bold";
+  src: url("/fonts/GT-America-Extended-Bold-v2.woff2") format('woff2');
+}

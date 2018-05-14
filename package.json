@@ -1,5 +1,6 @@
 {
   "name": "lounge",
+  "homepage" : "http://midnight.theater",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

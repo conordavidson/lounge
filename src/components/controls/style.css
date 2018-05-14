@@ -1,12 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700");
 .ControlsComponent {
-  font-family: Arial;
+  font-family: 'America Medium';
   font-size: 1.5rem;
-  font-weight: 700;
-  text-shadow: -0.11rem 0.11rem 0 #C89D00;
-  -webkit-text-stroke-color: #C89D00;
-  color: #C89D00;
+  text-shadow: -0.11rem 0.11rem 0 black;
+  -webkit-text-stroke-color: black;
+  color: black;
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
+  line-height: 1.5rem;
   text-align: center; }
   .ControlsComponent a {
     cursor: pointer;

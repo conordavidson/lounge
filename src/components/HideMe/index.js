@@ -13,6 +13,7 @@ const HideMe = ({
   displayedOnHome,
   actions
 }) => {
+  const { cancelControlDisplayTimeout } = actions
   const displayed = (() => {
     if (displayedOnHome) {
       if (currentPlayerView === HOME) {
@@ -26,7 +27,7 @@ const HideMe = ({
   })()
 
   return (
-    <div onMouseEnter={actions.cancelControlDisplayTimeout}>
+    <div onMouseEnter={cancelControlDisplayTimeout}>
       <CSSTransitionGroup
         transitionName="fade"
         transitionEnterTimeout={1000}

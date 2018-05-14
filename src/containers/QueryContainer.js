@@ -5,7 +5,8 @@ import Query from 'components/Query'
 
 const mapStateToProps = state => {
   return {
-    ...state.player
+    ...state.player,
+    ...state.ui
   }
 }
 

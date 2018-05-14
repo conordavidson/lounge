@@ -1,23 +1,26 @@
 $font-1: 0.5rem;
-$font-2: 0.75rem;
+$font-2: 0.8125rem;
 $font-3: 1rem;
 $font-4: 1.5rem;
 $font-5: 2rem;
 $font-6: 3rem;
 $font-7: 5rem;
 
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700');
+
 @mixin type-body {
-  font-family: Arial;
+  font-family: 'America Regular';
   font-size: $font-2;
+  line-height: 1.2rem;
 }
 
 @mixin type-deco {
-  font-family: Arial;
+  font-family: 'America Medium';
   font-size: $font-4;
-  font-weight: 700;
   text-shadow: -0.11rem 0.11rem 0 $color-primary;
   -webkit-text-stroke-color: $color-primary;
   color: $color-primary;
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
+  line-height: 1.5rem;
 }

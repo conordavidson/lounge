@@ -22,6 +22,7 @@ import Info from 'containers/InfoContainer'
 import './style.css'
 import 'styles/reset.css'
 import 'styles/transitions.css'
+import 'styles/fonts.css'
 
 const persistConfig = {
   key: 'root',

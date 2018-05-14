@@ -6,6 +6,7 @@ import currentPlayerView from 'state/selectors/currentPlayerView'
 const mapStateToProps = state => {
   return {
     ...state.player,
+    ...state.ui,
     currentPlayerView: currentPlayerView(state),
     currentMovie: currentMovie(state)
   }

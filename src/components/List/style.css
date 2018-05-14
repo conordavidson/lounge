@@ -1,69 +1,81 @@
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700");
+.List__add-icon {
+  font-family: 'America Medium';
+  font-size: 1.5rem;
+  text-shadow: -0.11rem 0.11rem 0 black;
+  -webkit-text-stroke-color: black;
+  color: black;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke-width: .5px;
+  line-height: 1.5rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  pointer-events: all;
+  transition: opacity .25s ease-in-out; }
+  .List__add-icon:hover {
+    opacity: .7; }
+
 .List {
   display: flex;
-  pointer-events: none; }
-  .List:hover .List__list {
-    pointer-events: all;
-    opacity: 1; }
-  .List:hover .ListItem__title {
-    pointer-events: all; }
-  .List__add-icon {
-    font-family: Arial;
+  pointer-events: all; }
+  .List__indicator {
+    font-family: 'America Medium';
     font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 #C89D00;
-    -webkit-text-stroke-color: #C89D00;
-    color: #C89D00;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
+    line-height: 1.5rem;
+    pointer-events: all;
     cursor: pointer;
     transition: opacity .25s ease-in-out;
-    pointer-events: all; }
-    .List__add-icon:hover {
+    font-size: 1.25rem; }
+    .List__indicator:hover {
       opacity: .7; }
   .List__list {
-    opacity: 0;
-    pointer-events: none;
-    padding: 0 2rem 0 1rem; }
-    .List__list li {
-      border-bottom: 1px solid #C89D00; }
-      .List__list li:first-child {
-        border-top: 1px solid #C89D00; }
+    padding: 1rem;
+    background-color: white; }
 
 .ListItem {
   cursor: pointer;
-  pointer-events: none; }
-  .ListItem:hover {
-    pointer-events: all; }
-    .ListItem:hover .ListItem__body {
-      display: flex;
-      opacity: 1;
-      pointer-events: all; }
-    .ListItem:hover .ListItem__toggle-icon::after {
-      transform: rotate(180deg); }
-    .ListItem:hover .ListItem__delete-icon {
-      display: block; }
-  .ListItem:not(:hover) .ListItem__header {
-    padding-bottom: .5rem; }
-  .ListItem__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid black; }
+  .ListItem:last-child {
+    border-bottom: 1px solid black; }
+  .ListItem .ListItem__left,
+  .ListItem .ListItem__right {
+    padding: .5rem 0; }
+  .ListItem .ListItem__left {
+    flex: none; }
+  .ListItem .ListItem__center {
+    flex: 1;
+    margin-right: 1rem; }
+  .ListItem .ListItem__right {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding-top: .5rem; }
-    .ListItem__header-left {
-      display: flex;
-      align-items: center; }
+    flex: none; }
+  .ListItem--expanded .ListItem__toggle-icon::after {
+    transform: rotate(180deg); }
+  .ListItem--expanded .ListItem__title {
+    margin-bottom: .5rem; }
   .ListItem__title {
-    font-family: Arial;
+    font-family: 'America Medium';
     font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 #C89D00;
-    -webkit-text-stroke-color: #C89D00;
-    color: #C89D00;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
     -webkit-text-fill-color: #fff;
     -webkit-text-stroke-width: .5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; }
+    line-height: 1.5rem;
+    transition: opacity .25s ease-in-out; }
+    .ListItem__title:hover {
+      opacity: .6; }
   .ListItem__toggle-icon::after {
     content: '';
     transition: transform .2s ease-in-out;
@@ -72,15 +84,14 @@
     height: 0;
     border-left: .3275rem solid transparent;
     border-right: .3275rem solid transparent;
-    border-bottom: 0.3275rem solid #C89D00;
-    border-top: none;
-    margin-left: .5rem; }
+    border-bottom: 0.3275rem solid black;
+    border-top: none; }
   .ListItem__delete-icon {
-    display: none;
+    display: block;
     width: .75rem;
     height: .75rem;
     position: relative;
-    margin-right: .5rem;
+    margin-right: 1rem;
     flex-grow: 0;
     flex-shrink: 0;
     opacity: .5;
@@ -94,44 +105,38 @@
       top: .375rem;
       right: 0;
       left: 0;
-      border-bottom: 1px solid #C89D00; }
+      border-bottom: 1px solid black; }
     .ListItem__delete-icon::before {
       transform: rotate(45deg); }
     .ListItem__delete-icon::after {
       transform: rotate(-45deg); }
   .ListItem__body {
-    font-family: Arial;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-shadow: -0.11rem 0.11rem 0 #C89D00;
-    -webkit-text-stroke-color: #C89D00;
-    color: #C89D00;
-    -webkit-text-fill-color: #fff;
-    -webkit-text-stroke-width: .5px;
-    opacity: 0;
-    display: none;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: flex-end;
-    pointer-events: none;
-    transition: opacity 0.25s ease-in-out;
-    padding: 1rem 0;
     font-size: 1rem;
     line-height: 1.25rem; }
   .ListItem__info {
-    margin-right: 2rem; }
-  .ListItem__links {
+    font-family: 'America Regular';
+    font-size: 0.8125rem;
+    line-height: 1.2rem; }
+  .ListItem__link {
+    font-family: 'America Medium';
+    font-size: 1.5rem;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    line-height: 1.5rem;
     font-size: 1.375rem;
     cursor: pointer;
     transition: transform .25s ease-in-out; }
-    .ListItem__links:hover {
+    .ListItem__link:hover {
       transform: translate3d(0.25rem, -0.25rem, 0); }
-    .ListItem__links:visited {
-      font-family: Arial;
+    .ListItem__link:visited {
+      font-family: 'America Medium';
       font-size: 1.5rem;
-      font-weight: 700;
-      text-shadow: -0.11rem 0.11rem 0 #C89D00;
-      -webkit-text-stroke-color: #C89D00;
-      color: #C89D00;
+      text-shadow: -0.11rem 0.11rem 0 black;
+      -webkit-text-stroke-color: black;
+      color: black;
       -webkit-text-fill-color: #fff;
-      -webkit-text-stroke-width: .5px; }
+      -webkit-text-stroke-width: .5px;
+      line-height: 1.5rem; }

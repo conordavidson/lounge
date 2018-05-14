@@ -1,6 +1,7 @@
 @import "settings", "components";
 
 .QueryComponent {
+  flex-basis: 50%;
   pointer-events: all;
   display: flex;
   flex-flow: row nowrap;
@@ -25,7 +26,6 @@
   &__years {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     form {
       @include type-deco;
@@ -48,20 +48,20 @@
 
 .GenreDropdown {
   @include type-deco;
-  pointer-events: none;
+  flex-basis: 50%;
+  max-width: 17rem;
   cursor: pointer;
   display: inline-flex;
+  justify-content: space-between;
   flex-flow: column nowrap;
-  margin-right: 3rem;
   text-transform: uppercase;
+  line-height: 1.75rem;
 
   &__list {
-    opacity: 0;
     transition: opacity .25s ease-in-out;
   }
 
   &__selected-genre {
-    pointer-events: all;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,18 +79,11 @@
     }
   }
 
-  &:hover &__selected-genre:after {
+  &--expanded &__selected-genre:after {
     transform: rotate(180deg);
   }
 
-  &:hover .GenreDropdown__list {
-    pointer-events: all;
-    opacity: 1;
-
-    .GenreDropdown__item:hover {
-      opacity: .7;
-    }
+  .GenreDropdown__item:hover {
+    opacity: .7;
   }
-
-
 }

@@ -35,11 +35,22 @@
 }
 
 .HomeView {
+  @include type-body;
   text-align: center;
-  max-width: 22rem;
+  text-transform: uppercase;
+
+  h6,
+  p {
+    max-width: 18rem;
+  }
+
+  h6 {
+    margin-bottom: 2.2rem;
+  }
 
   &__title {
     @include type-deco;
+    margin-bottom: 1.4rem;
   }
 }
 
