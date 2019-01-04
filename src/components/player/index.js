@@ -11,7 +11,9 @@ import './style.css'
 
 class Player extends Component {
   componentDidMount() {
-    const { actions: { detectTouchScreen } } = this.props
+    const {
+      actions: { detectTouchScreen },
+    } = this.props
     detectTouchScreen('ontouchstart' in window || !!navigator.maxTouchPoints)
     document.addEventListener('keypress', this.togglePausePlayVideo)
   }
@@ -21,7 +23,7 @@ class Player extends Component {
       <div key={'intermissionView'} className={`PlayerComponent__text`}>
         <div className={`IntermissionView`}>
           <mark className={`Counter`}>
-            <mark className={`Counter__arc`}/>
+            <mark className={`Counter__arc`} />
           </mark>
           <BouncingText className={`IntermissionView__title`} text="INTERMISSION" />
           <p>
@@ -48,9 +50,7 @@ class Player extends Component {
         <div className={`HomeView`}>
           <h6>Welcome to the</h6>
           <BouncingText className={`HomeView__title`} text="MIDNIGHT THEATER" />
-          <p>
-            Select a genre and/or time period to begin your viewing experience
-          </p>
+          <p>Select a genre and/or time period to begin your viewing experience</p>
         </div>
       </div>
     )
@@ -60,16 +60,13 @@ class Player extends Component {
     const {
       controlsDisplayed,
       currentMovie,
-      actions: { nextMovie, setYoutubePlayerInstance }
+      actions: { nextMovie, setYoutubePlayerInstance },
     } = this.props
 
     controlsDisplayed ? showCursor() : hideCursor()
 
     return (
-      <div
-        className={`PlayerComponent__trailer-view`}
-        key={currentMovie.trailer.key}
-      >
+      <div className={`PlayerComponent__trailer-view`} key={currentMovie.trailer.key}>
         <YouTube
           videoId={currentMovie.trailer.key}
           onEnd={() => nextMovie(TRAILER_FINISHED)}
@@ -83,8 +80,8 @@ class Player extends Component {
               modestbranding: 1,
               rel: 0,
               showinfo: 0,
-              fs: 0
-            }
+              fs: 0,
+            },
           }}
         />
       </div>
@@ -92,7 +89,9 @@ class Player extends Component {
   }
 
   togglePausePlayVideo = e => {
-    const { actions: { togglePlayPause } } = this.props
+    const {
+      actions: { togglePlayPause },
+    } = this.props
     if (e.code !== 'Space') return
     togglePlayPause(SPACE_BAR)
   }
@@ -117,19 +116,15 @@ class Player extends Component {
     const {
       controlsDisplayed,
       currentPlayerView,
-      actions: { startControlDisplayTimeout }
+      actions: { startControlDisplayTimeout },
     } = this.props
 
     const classes = cx('PlayerComponent', {
-      'PlayerComponent--controls-hidden':
-        !controlsDisplayed && currentPlayerView === TRAILER
+      'PlayerComponent--controls-hidden': !controlsDisplayed && currentPlayerView === TRAILER,
     })
 
     return (
-      <div
-        className={classes}
-        onMouseMove={throttle(250, startControlDisplayTimeout)}
-      >
+      <div className={classes} onMouseMove={throttle(250, startControlDisplayTimeout)}>
         <CSSTransitionGroup
           transitionName="fade"
           transitionEnterTimeout={1000}
