@@ -15,7 +15,7 @@ class Query extends Component {
       minYear: null,
       maxYear: null,
       errors: [],
-      genreDropdownExpanded: false
+      genreDropdownExpanded: false,
     }
   }
 
@@ -37,10 +37,14 @@ class Query extends Component {
   }
 
   genreDropdown() {
-    const { genre, years, actions: { setQuery } } = this.props
+    const {
+      genre,
+      years,
+      actions: { setQuery },
+    } = this.props
     const { genreDropdownExpanded } = this.state
     const classes = cx('GenreDropdown', {
-      'GenreDropdown--expanded': genreDropdownExpanded
+      'GenreDropdown--expanded': genreDropdownExpanded,
     })
 
     return (
@@ -50,31 +54,21 @@ class Query extends Component {
         onMouseLeave={this.handleGenreDropdownHover}
         onTouchStart={this.handleGenreDropdownTouch}
       >
-        <div className={`GenreDropdown__selected-genre`}>
-          {Language.genres[genre]}
-        </div>
-        <CSSTransitionGroup
-          transitionName="fade"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-        {genreDropdownExpanded ? (
-          <ul className={`GenreDropdown__list`}>
-            {Object.keys(Genres)
-              .filter(key => key !== genre)
-              .map(key => {
-                return (
-                  <li
-                    className={`GenreDropdown__item`}
-                    key={key}
-                    onClick={() => setQuery({ years, genre: key })}
-                  >
-                    {Language.genres[key]}
-                  </li>
-                )
-              })}
-          </ul>
-        ) : null}
+        <div className={`GenreDropdown__selected-genre`}>{Language.genres[genre]}</div>
+        <CSSTransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {genreDropdownExpanded ? (
+            <ul className={`GenreDropdown__list`}>
+              {Object.keys(Genres)
+                .filter(key => key !== genre)
+                .map(key => {
+                  return (
+                    <li className={`GenreDropdown__item`} key={key} onClick={() => setQuery({ years, genre: key })}>
+                      {Language.genres[key]}
+                    </li>
+                  )
+                })}
+            </ul>
+          ) : null}
         </CSSTransitionGroup>
       </div>
     )
@@ -82,14 +76,17 @@ class Query extends Component {
 
   setYearsAndQuery(e) {
     e.preventDefault()
-    const { genre, actions: { setQuery } } = this.props
+    const {
+      genre,
+      actions: { setQuery },
+    } = this.props
     const { minYear, maxYear } = this.state
     return setQuery({
       genre,
       years: {
         min: minYear,
-        max: maxYear
-      }
+        max: maxYear,
+      },
     })
   }
 
@@ -118,9 +115,9 @@ class Query extends Component {
   setYears(changed, e) {
     this.setState(
       {
-        [changed]: parseInt(e.target.value, 10) || null
+        [changed]: parseInt(e.target.value, 10) || null,
       },
-      () => this.validateYears()
+      () => this.validateYears(),
     )
   }
 
@@ -128,21 +125,9 @@ class Query extends Component {
     return (
       <form onSubmit={e => this.setYearsAndQuery(e)} autoComplete="off">
         <label>FROM</label>
-        <input
-          onChange={e => this.setYears('minYear', e)}
-          name="minYear"
-          type="text"
-          maxLength="4"
-          size="4"
-        />
+        <input onChange={e => this.setYears('minYear', e)} name="minYear" type="text" maxLength="4" size="4" />
         <label>TO</label>
-        <input
-          onChange={e => this.setYears('maxYear', e)}
-          name="maxYear"
-          type="text"
-          maxLength="4"
-          size="4"
-        />
+        <input onChange={e => this.setYears('maxYear', e)} name="maxYear" type="text" maxLength="4" size="4" />
         <button type="submit" />
       </form>
     )
@@ -158,15 +143,11 @@ class Query extends Component {
     const { errors } = this.state
 
     return (
-      <HideMe displayedOnHome>
+      <HideMe displayedOnHome hiddenOnIntermission>
         <div className={`QueryComponent`}>
           <div className={`QueryComponent__years`}>
             {this.yearSelector()}
-            <CSSTransitionGroup
-              transitionName="fade"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}
-            >
+            <CSSTransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
               {errors.length ? this.errorTooltip() : null}
             </CSSTransitionGroup>
           </div>

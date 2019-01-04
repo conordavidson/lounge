@@ -24,18 +24,23 @@
     .PlayerComponent__trailer-view--cursor-hidden {
       cursor: none; }
 
-.HomeView {
+.HomeView,
+.IntermissionView {
   font-family: 'America Regular';
   font-size: 0.8125rem;
   line-height: 1.2rem;
   text-align: center;
   text-transform: uppercase; }
   .HomeView h6,
-  .HomeView p {
+  .HomeView p,
+  .IntermissionView h6,
+  .IntermissionView p {
     max-width: 18rem; }
-  .HomeView h6 {
+  .HomeView h6,
+  .IntermissionView h6 {
     margin-bottom: 2.2rem; }
-  .HomeView__title {
+  .HomeView__title,
+  .IntermissionView__title {
     font-family: 'America Medium';
     font-size: 1.5rem;
     text-shadow: -0.11rem 0.11rem 0 black;
@@ -56,3 +61,69 @@
   -webkit-text-fill-color: #fff;
   -webkit-text-stroke-width: .5px;
   line-height: 1.5rem; }
+
+.Counter {
+  position: relative;
+  margin: 0 auto 3rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .Counter::after {
+    animation-name: incrementCounter;
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+    content: '';
+    font-family: 'America Medium';
+    font-size: 1.5rem;
+    text-shadow: -0.11rem 0.11rem 0 black;
+    -webkit-text-stroke-color: black;
+    color: black;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: .5px;
+    line-height: 1.5rem;
+    display: block; }
+  .Counter__arc {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 2px solid black;
+    border-radius: 50%;
+    animation-name: rotateClip;
+    animation-duration: 1s;
+    animation-iteration-count: infinite; }
+
+@keyframes incrementCounter {
+  0% {
+    content: '10'; }
+  10% {
+    content: '9'; }
+  20% {
+    content: '8'; }
+  30% {
+    content: '7'; }
+  40% {
+    content: '6'; }
+  50% {
+    content: '5'; }
+  60% {
+    content: '4'; }
+  70% {
+    content: '3'; }
+  80% {
+    content: '2'; }
+  90% {
+    content: '1'; }
+  100% {
+    content: '0'; } }
+
+@keyframes rotateClip {
+  from {
+    clip: rect(0, 3rem, 3rem, 0rem);
+    transform: rotate(0deg); }
+  to {
+    clip: rect(0, 3rem, 3rem, 3rem);
+    transform: rotate(180deg); } }

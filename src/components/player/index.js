@@ -13,13 +13,23 @@ class Player extends Component {
   componentDidMount() {
     const { actions: { detectTouchScreen } } = this.props
     detectTouchScreen('ontouchstart' in window || !!navigator.maxTouchPoints)
-    document.addEventListener("keypress", this.togglePausePlayVideo);
+    document.addEventListener('keypress', this.togglePausePlayVideo)
   }
 
   intermissionView() {
     return (
       <div key={'intermissionView'} className={`PlayerComponent__text`}>
-        <BouncingText className={`Intermission`} text="INTERMISSION" />
+        <div className={`IntermissionView`}>
+          <mark className={`Counter`}>
+            <mark className={`Counter__arc`}/>
+          </mark>
+          <BouncingText className={`IntermissionView__title`} text="INTERMISSION" />
+          <p>
+            {`We're experiencing difficulties retrieving trailers within your
+            search criteria. Try selecting a different genre and/or time period
+            after the brief intermission.`}
+          </p>
+        </div>
       </div>
     )
   }
@@ -111,7 +121,8 @@ class Player extends Component {
     } = this.props
 
     const classes = cx('PlayerComponent', {
-      'PlayerComponent--controls-hidden': !controlsDisplayed  && currentPlayerView === TRAILER
+      'PlayerComponent--controls-hidden':
+        !controlsDisplayed && currentPlayerView === TRAILER
     })
 
     return (
