@@ -14,8 +14,12 @@ export const TMDB_fetchMovies = query => {
 ${urlGenreParam}${urlYearBeginParam}${urlYearEndParam}`
 
   return fetch(`${urlBaseSegment}discover/movie?${urlKeyParam}${urlSettingParams}`)
+    .then(response => ({ response }))
+    .catch(error => ({ error }))
 }
 
 export const TMDB_fetchDetails = query => {
   return fetch(`${urlBaseSegment}movie/${query.id}?${urlKeyParam}&append_to_response=videos,credits`)
+    .then(response => ({ response }))
+    .catch(error => ({ error }))
 }
