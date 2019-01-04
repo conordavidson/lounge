@@ -12,7 +12,7 @@ class Controls extends Component {
     } = this.props
 
     return (
-      <HideMe hiddenOnHome hiddenOnIntermission>
+      <HideMe hiddenOnHome hiddenOnIntermission hiddenOnLoading>
         <div className={`ControlsComponent`}>
           {!atFirstMovie ? <a onClick={queueBackward}>&#9666;&#9666;</a> : null}
           <a onClick={() => togglePlayPause(MOUSE_CLICK)}>{paused ? '\u25BA' : '\u2759\u2759'}</a>

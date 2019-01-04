@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { CSSTransitionGroup } from 'react-transition-group'
 import currentPlayerView from 'state/selectors/currentPlayerView'
 import { cancelControlDisplayTimeout } from 'state/actions'
-import { TRAILER, HOME, INTERMISSION } from 'constants/PlayerViews'
+import { TRAILER, HOME, INTERMISSION, LOADING } from 'constants/PlayerViews'
 
 const HideMe = ({
   children,
@@ -13,6 +13,7 @@ const HideMe = ({
   displayedOnHome,
   hiddenOnIntermission,
   hiddenOnHome,
+  hiddenOnLoading,
   actions,
 }) => {
   const { cancelControlDisplayTimeout } = actions
@@ -20,6 +21,7 @@ const HideMe = ({
     if (hiddenOnIntermission && currentPlayerView === INTERMISSION) return false
     if (displayedOnHome && currentPlayerView === HOME) return true
     if (hiddenOnHome && currentPlayerView === HOME) return false
+    if (hiddenOnLoading && currentPlayerView === LOADING) return false
     return controlsDisplayed
   })()
 
