@@ -1,8 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,500|EB+Garamond:400,500|Libre+Baskerville:400,700");
-html, body, main, #root {
+html,
+body,
+main,
+#root {
   width: 100%;
   height: 100%;
   margin: 0; }
+
+main {
+  position: relative;
+  min-width: 1200px; }
 
 body.--cursor-hidden {
   cursor: none; }

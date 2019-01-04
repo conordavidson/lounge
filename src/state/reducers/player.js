@@ -82,6 +82,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         trailerFetchDifficulty: false,
+        loading: false,
       }
     case FETCH_TRAILER_PENDING:
       return {

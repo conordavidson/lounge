@@ -12,12 +12,14 @@ const HideMe = ({
   currentPlayerView,
   displayedOnHome,
   hiddenOnIntermission,
-  actions
+  hiddenOnHome,
+  actions,
 }) => {
   const { cancelControlDisplayTimeout } = actions
   const displayed = (() => {
     if (hiddenOnIntermission && currentPlayerView === INTERMISSION) return false
     if (displayedOnHome && currentPlayerView === HOME) return true
+    if (hiddenOnHome && currentPlayerView === HOME) return false
     return controlsDisplayed
   })()
 
@@ -39,7 +41,7 @@ const HideMe = ({
 const mapStateToProps = state => {
   return {
     currentPlayerView: currentPlayerView(state),
-    ...state.ui
+    ...state.ui,
   }
 }
 
@@ -47,11 +49,14 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(
       {
-        cancelControlDisplayTimeout
+        cancelControlDisplayTimeout,
       },
-      dispatch
-    )
+      dispatch,
+    ),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HideMe)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HideMe)

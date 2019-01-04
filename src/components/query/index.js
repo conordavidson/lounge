@@ -12,8 +12,8 @@ class Query extends Component {
     super(props)
     this.validateYears = debounce(500, this.validateYears)
     this.state = {
-      minYear: null,
-      maxYear: null,
+      minYear: '',
+      maxYear: '',
       errors: [],
       genreDropdownExpanded: false,
     }
@@ -81,6 +81,7 @@ class Query extends Component {
       actions: { setQuery },
     } = this.props
     const { minYear, maxYear } = this.state
+    if (this.yearsValidationErrors().length) return
     return setQuery({
       genre,
       years: {
@@ -90,7 +91,7 @@ class Query extends Component {
     })
   }
 
-  validateYears() {
+  yearsValidationErrors() {
     const { minYear, maxYear } = this.state
     const currentYear = new Date().getFullYear()
     const errors = []
@@ -109,7 +110,11 @@ class Query extends Component {
     if (!/^\d{4}$/.test(maxYear) && maxYear !== null) {
       errors.push(Language.errors.invalidMaxYear)
     }
-    this.setState({ errors })
+    return errors
+  }
+
+  validateYears() {
+    return this.setState({ errors: this.yearsValidationErrors() })
   }
 
   setYears(changed, e) {
@@ -125,9 +130,23 @@ class Query extends Component {
     return (
       <form onSubmit={e => this.setYearsAndQuery(e)} autoComplete="off">
         <label>FROM</label>
-        <input onChange={e => this.setYears('minYear', e)} name="minYear" type="text" maxLength="4" size="4" />
+        <input
+          value={this.state.minYear}
+          onChange={e => this.setYears('minYear', e)}
+          name="minYear"
+          type="text"
+          maxLength="4"
+          size="4"
+        />
         <label>TO</label>
-        <input onChange={e => this.setYears('maxYear', e)} name="maxYear" type="text" maxLength="4" size="4" />
+        <input
+          value={this.state.maxYear}
+          onChange={e => this.setYears('maxYear', e)}
+          name="maxYear"
+          type="text"
+          maxLength="4"
+          size="4"
+        />
         <button type="submit" />
       </form>
     )
