@@ -9,7 +9,7 @@ import {
   FETCH_TRAILER_PENDING,
   SET_YOUTUBE_PLAYER_INSTANCE,
   PLAY_YOUTUBE_PLAYER,
-  PAUSE_YOUTUBE_PLAYER
+  PAUSE_YOUTUBE_PLAYER,
 } from '../actions'
 
 export const initialState = {
@@ -22,11 +22,11 @@ export const initialState = {
   genre: 'ALL',
   years: {
     min: null,
-    max: null
+    max: null,
   },
   trailerFetchDifficulty: false,
-  paused: false,
-  youtubePlayerInstance: null
+  paused: true,
+  youtubePlayerInstance: null,
 }
 
 export default (state = initialState, action) => {
@@ -35,12 +35,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         genre: action.payload.genre,
-        years: action.payload.years
+        years: action.payload.years,
       }
     case SET_QUERY_META:
       return {
         ...state,
-        totalPages: action.payload.total_pages
+        totalPages: action.payload.total_pages,
       }
     case SET_MOVIE:
       return {
@@ -52,29 +52,26 @@ export default (state = initialState, action) => {
             trailer: action.payload.videos.results[0],
             directors: action.payload.credits.crew.filter(member => {
               return member.job === 'Director'
-            })
-          }
+            }),
+          },
         },
         queue: state.queue.concat([action.payload.id]),
         currentMovieId: action.payload.id,
         initialized: true,
-        loading: false
+        loading: false,
+        paused: false,
       }
     case QUEUE_FORWARD:
       return {
         ...state,
-        currentMovieId:
-          state.queue[
-            state.queue.findIndex(id => id === state.currentMovieId) + 1
-          ]
+        currentMovieId: state.queue[state.queue.findIndex(id => id === state.currentMovieId) + 1],
+        paused: false,
       }
     case QUEUE_BACKWARD:
       return {
         ...state,
-        currentMovieId:
-          state.queue[
-            state.queue.findIndex(id => id === state.currentMovieId) - 1
-          ]
+        currentMovieId: state.queue[state.queue.findIndex(id => id === state.currentMovieId) - 1],
+        paused: false,
       }
     case START_UNSUCCESSFUL_TRAILER_ATTEMPT_TIMEOUT:
       return {
@@ -89,22 +86,22 @@ export default (state = initialState, action) => {
     case FETCH_TRAILER_PENDING:
       return {
         ...state,
-        loading: true
+        loading: true,
       }
     case SET_YOUTUBE_PLAYER_INSTANCE:
       return {
         ...state,
-        youtubePlayerInstance: action.payload
+        youtubePlayerInstance: action.payload,
       }
     case PLAY_YOUTUBE_PLAYER:
       return {
         ...state,
-        paused: false
+        paused: false,
       }
     case PAUSE_YOUTUBE_PLAYER:
       return {
         ...state,
-        paused: true
+        paused: true,
       }
     default:
       return state
